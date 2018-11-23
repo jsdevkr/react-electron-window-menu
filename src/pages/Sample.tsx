@@ -1,12 +1,10 @@
 import * as React from 'react';
 
 import { styled, StyledContainer } from 'styledComponents';
-import 'react-multi-email/style.css';
-import { Basic, CustomizeStyle } from './Examples';
+import { BasicExample } from 'examples';
 import { CodeViewer } from 'components';
 
-const basicRaw = require('!raw-loader!./Examples/components/Basic.tsx');
-const customizeStyleRaw = require('!raw-loader!./Examples/components/CustomizeStyle.tsx');
+const basicRaw = require('!raw-loader!examples/BasicExample.tsx');
 const axuiLogo = require('assets/axui-logo.png');
 const GitHubButton = require('react-github-button');
 
@@ -62,19 +60,19 @@ class Index extends React.Component<IProps, IState> {
             <div className={'logo-img'}>
               <img src={axuiLogo} />
             </div>
-            <h1>react-multi-email</h1>
+            <h1>axui-contextmenu</h1>
             <div>
               <GitHubButton
                 type="stargazers"
                 size="large"
-                namespace="axui"
-                repo="react-multi-email"
+                namespace="jsdevkr"
+                repo="axui-contextmenu"
               />{' '}
               <GitHubButton
                 type="forks"
                 size="large"
-                namespace="axui"
-                repo="react-multi-email"
+                namespace="jsdevkr"
+                repo="axui-contextmenu"
               />
             </div>
           </StyledContainer>
@@ -83,24 +81,19 @@ class Index extends React.Component<IProps, IState> {
         <StyledContainer>
           <h2>Installation</h2>
 
-          <CodeViewer>npm install react-multi-email -S</CodeViewer>
+          <CodeViewer>npm install axui-contextmenu</CodeViewer>
 
           <CodeViewer
             code={`
-import 'react-multi-email/style.css';
-import { ReactMultiEmail } from 'react-multi-email';
+import 'axui-contextmenu/style.css';
+import ContextMenu from 'axui-contextmenu';
 `}
           />
 
           <h2>basic</h2>
-          <Basic />
+          <BasicExample />
 
           <CodeViewer code={basicRaw} />
-
-          <h2>customize style</h2>
-          <CustomizeStyle />
-
-          <CodeViewer code={customizeStyleRaw} />
         </StyledContainer>
       </Component>
     );

@@ -1,2 +1,3 @@
-export { default as isEmail } from './isEmail';
-export { default as ReactMultiEmail } from './ReactMultiEmail';
+import { default as AXUIContextMenu } from './AXUIContextMenu';
+export { IAXUIContextMenuProps } from './AXUIContextMenu';
+export default AXUIContextMenu;
