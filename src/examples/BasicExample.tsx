@@ -1,18 +1,36 @@
 import * as React from 'react';
 
+import ContextMenu, { IAXUIContextMenu } from 'axui-contextmenu';
+import { styled } from 'styledComponents';
+
+const menu = new ContextMenu({ id: 'basic' });
+menu.setMenu([]);
+
+const Container = styled.div`
+  height: 300px;
+  background: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 interface IProps {}
-interface IState {
-  emails: string[];
-}
+interface IState {}
+
 class BasicExample extends React.Component<IProps, IState> {
-  state = {
-    emails: [],
+  state = {};
+
+  handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    menu.popup();
   };
 
   render() {
-    const { emails } = this.state;
-
-    return <>TEST</>;
+    return (
+      <Container onContextMenu={this.handleContextMenu}>
+        Right mouse click here
+      </Container>
+    );
   }
 }
 

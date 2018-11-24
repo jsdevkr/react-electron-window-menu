@@ -10,19 +10,14 @@ const GitHubButton = require('react-github-button');
 
 const Component = styled.div`
   .app-header {
-    background: rgb(19, 59, 93);
+    background: #333;
     color: #fff;
+    padding-top: 3em;
     padding-bottom: 3em;
     margin-bottom: 2em;
 
     .logo-img {
-      width: 120px;
-      background: #f3f3f3;
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
-      padding-bottom: 5px;
-      overflow: hidden;
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
+      width: 100px;
       img {
         width: 100%;
         display: block;
@@ -62,18 +57,16 @@ class Index extends React.Component<IProps, IState> {
             </div>
             <h1>axui-contextmenu</h1>
             <div>
-              <GitHubButton
+              {/* <GitHubButton
                 type="stargazers"
-                size="large"
                 namespace="jsdevkr"
                 repo="axui-contextmenu"
               />{' '}
               <GitHubButton
                 type="forks"
-                size="large"
                 namespace="jsdevkr"
                 repo="axui-contextmenu"
-              />
+              /> */}
             </div>
           </StyledContainer>
         </header>
@@ -81,12 +74,12 @@ class Index extends React.Component<IProps, IState> {
         <StyledContainer>
           <h2>Installation</h2>
 
-          <CodeViewer>npm install axui-contextmenu</CodeViewer>
+          <CodeViewer>$ npm install axui-contextmenu</CodeViewer>
 
           <CodeViewer
             code={`
 import 'axui-contextmenu/style.css';
-import ContextMenu from 'axui-contextmenu';
+import ContextMenu, { IAXUIContextMenuProps } from 'axui-contextmenu';
 `}
           />
 
