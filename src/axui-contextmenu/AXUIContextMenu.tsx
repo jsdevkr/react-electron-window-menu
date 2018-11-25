@@ -1,12 +1,19 @@
 import * as React from 'react';
-import ReactDOM = require('react-dom');
+import * as ReactDOM from 'react-dom';
+import PopupMenu, { IAXUIContextMenuItem } from './AXUIContextPopupMenu';
 
 export interface IAXUIContextMenuOptions {
   id?: string;
 }
-export interface IAXUIContextMenuItem {}
+
+export interface IAXUIContextMenuPopupOption {
+  x?: number;
+  y?: number;
+  callback?: () => void;
+}
+
 export interface IAXUIContextMenu {
-  popup: () => void;
+  popup: (popupOption?: IAXUIContextMenuPopupOption) => void;
   setMenu: (menuItems: IAXUIContextMenuItem[]) => IAXUIContextMenu;
 }
 
@@ -17,14 +24,17 @@ class AXUIContextMenu implements IAXUIContextMenu {
   };
   menuItems: IAXUIContextMenuItem[] = [];
 
-  constructor(options: IAXUIContextMenuOptions = {}) {}
+  constructor(options: IAXUIContextMenuOptions = {}) {
+    this.options = options;
+  }
 
   setMenu(menuItems: IAXUIContextMenuItem[]) {
     this.menuItems = [...menuItems];
     return this;
   }
 
-  popup() {
+  popup(popupOption: IAXUIContextMenuPopupOption) {
+    const { x: containerLeft = 0, y: containerTop = 0 } = popupOption;
     const { id = '' } = this.options;
 
     const existContainer = document.querySelectorAll(
@@ -40,8 +50,13 @@ class AXUIContextMenu implements IAXUIContextMenu {
       document.body.appendChild(this.container);
     }
 
+    // set style of this.container
+    this.container.style.position = 'absolute';
+    this.container.style.left = containerLeft + 'px';
+    this.container.style.top = containerTop + 'px';
+
     if (this.container) {
-      ReactDOM.render(<>ContextMenu</>, this.container);
+      ReactDOM.render(<PopupMenu menuItems={this.menuItems} />, this.container);
     }
   }
 }

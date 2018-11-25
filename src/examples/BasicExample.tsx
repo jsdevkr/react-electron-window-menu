@@ -4,7 +4,7 @@ import ContextMenu, { IAXUIContextMenu } from 'axui-contextmenu';
 import { styled } from 'styledComponents';
 
 const menu = new ContextMenu({ id: 'basic' });
-menu.setMenu([]);
+menu.setMenu([{ label: 'menu1' }, { label: 'menu2' }]);
 
 const Container = styled.div`
   height: 300px;
@@ -22,7 +22,7 @@ class BasicExample extends React.Component<IProps, IState> {
 
   handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
-    menu.popup();
+    menu.popup({ x: e.clientX, y: e.clientY });
   };
 
   render() {
@@ -31,6 +31,10 @@ class BasicExample extends React.Component<IProps, IState> {
         Right mouse click here
       </Container>
     );
+  }
+
+  componentDidMount() {
+    menu.popup({ x: 300, y: 500 });
   }
 }
 
