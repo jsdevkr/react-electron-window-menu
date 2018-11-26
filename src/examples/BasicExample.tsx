@@ -1,10 +1,22 @@
 import * as React from 'react';
 
 import ContextMenu, { IAXUIContextMenu } from 'axui-contextmenu';
+import 'axui-contextmenu/style.css';
 import { styled } from 'styledComponents';
 
 const menu = new ContextMenu({ id: 'basic' });
-menu.setMenu([{ label: 'menu1' }, { label: 'menu2' }]);
+menu.setMenu([
+  { label: '뒤로' },
+  { label: '앞으로' },
+  { label: '새로고침' },
+  { type: 'separator' },
+  { label: '다른이름으로 저장' },
+  { label: '인쇄' },
+  { label: '전송...' },
+  { type: 'separator' },
+  { label: '페이지 소스보기' },
+  { label: '저장' },
+]);
 
 const Container = styled.div`
   height: 300px;
@@ -22,7 +34,7 @@ class BasicExample extends React.Component<IProps, IState> {
 
   handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
-    menu.popup({ x: e.clientX, y: e.clientY });
+    menu.popup({ x: e.pageX, y: e.pageY });
   };
 
   render() {

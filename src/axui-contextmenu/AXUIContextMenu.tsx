@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import PopupMenu, { IAXUIContextMenuItem } from './AXUIContextPopupMenu';
+import PopupMenu from './PopupMenu';
+import { IAXUIContextMenuItem } from './MenuItem';
 
 export interface IAXUIContextMenuOptions {
   id?: string;

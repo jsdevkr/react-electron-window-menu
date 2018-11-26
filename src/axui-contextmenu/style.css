@@ -1,1 +1,54 @@
-.axui-contextmenu {}
+/* OSX style */
+.axui-contextmenu {
+  position: absolute;
+  background: #f6f6f6;
+  border: 0.5px solid rgba(0, 0, 0, .15);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, .2);
+  border-radius: 6px;
+  padding: 4px 0;
+  user-select: none;
+  cursor: default;
+  min-width: 120px;
+}
+
+.axui-contextmenu[data-align="top-left"] {
+  left: 0;
+  top: 0;
+}
+
+.axui-contextmenu[data-align="top-right"] {
+  right: 0;
+  top: 0;
+}
+
+.axui-contextmenu[data-align="bottom-left"] {
+  left: 0;
+  bottom: 0;
+}
+
+.axui-contextmenu[data-align="bottom-right"] {
+  right: 0;
+  bottom: 0;
+}
+
+.axui-contextmenu-item {
+  padding: 3px 8px 3px 18px;
+  /* lineheight : 14 + padding : 4 */
+  line-height: 14px;
+  white-space: nowrap;
+  color: #434343;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.axui-contextmenu-item:hover {
+  background-color: #0057d9;
+  color: #fff;
+}
+
+.axui-contextmenu-separator {
+  height: 2px;
+  background-color: #e5e5e5;
+  padding: 0;
+  margin: 5px 0;
+}
