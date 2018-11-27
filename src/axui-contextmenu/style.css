@@ -2,13 +2,17 @@
 .axui-contextmenu {
   position: absolute;
   background: #f6f6f6;
-  border: 0.5px solid rgba(0, 0, 0, .15);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, .2);
+  border: 0.5px solid rgba(0, 0, 0, .2);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .3);
   border-radius: 6px;
   padding: 4px 0;
   user-select: none;
   cursor: default;
-  min-width: 120px;
+  min-width: 130px;
+
+  color: #434343;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .axui-contextmenu[data-align="top-left"] {
@@ -36,14 +40,18 @@
   /* lineheight : 14 + padding : 4 */
   line-height: 14px;
   white-space: nowrap;
-  color: #434343;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: inherit;
+  color: inherit;
+  font-weight: inherit;
 }
 
 .axui-contextmenu-item:hover {
   background-color: #0057d9;
   color: #fff;
+}
+
+.axui-contextmenu .icon-wrapper {
+  margin-right: 4px;
 }
 
 .axui-contextmenu-separator {

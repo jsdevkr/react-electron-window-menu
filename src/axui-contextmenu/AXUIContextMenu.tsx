@@ -5,6 +5,7 @@ import { IAXUIContextMenuItem } from './MenuItem';
 
 export interface IAXUIContextMenuOptions {
   id?: string;
+  style?: { [key: string]: string | number };
 }
 
 export interface IAXUIContextMenuPopupOption {
@@ -18,19 +19,36 @@ export interface IAXUIContextMenu {
   setMenu: (menuItems: IAXUIContextMenuItem[]) => IAXUIContextMenu;
 }
 
+export type IAXUIContextMenuOnClickItem = (
+  menuItem: IAXUIContextMenuItem,
+  browserWindow: Window,
+  event: React.MouseEvent<HTMLDivElement>,
+) => void;
+
 class AXUIContextMenu implements IAXUIContextMenu {
   container: HTMLDivElement;
   options: IAXUIContextMenuOptions = {
     id: '',
   };
   menuItems: IAXUIContextMenuItem[] = [];
+  _visible: boolean = false;
 
   constructor(options: IAXUIContextMenuOptions = {}) {
     this.options = options;
   }
 
+  get visible() {
+    return this._visible;
+  }
+
+  set visible(tf: boolean) {
+    this._visible = tf;
+    this.render();
+  }
+
   setMenu(menuItems: IAXUIContextMenuItem[]) {
     this.menuItems = [...menuItems];
+    this.render();
     return this;
   }
 
@@ -57,7 +75,51 @@ class AXUIContextMenu implements IAXUIContextMenu {
     this.container.style.top = containerTop + 'px';
 
     if (this.container) {
-      ReactDOM.render(<PopupMenu menuItems={this.menuItems} />, this.container);
+      this.visible = true;
+    }
+  }
+
+  onClickItem: IAXUIContextMenuOnClickItem = (menuItem, w, e) => {
+    // console.log(menuItem);
+    // 메뉴가 클릭되었다는 것은 인지하는 곳.
+    this.visible = false;
+  };
+
+  // document.body에서 마우스 다운이 일어난 경우 contextMenu안쪽이 클릭된 것이지 바깥쪽에서 마우스 다운이 일어 난 건지 체크.
+  onMousedownBody = (e: MouseEvent) => {
+    var el = e.target;
+    if (el && el instanceof Node && !this.container.contains(el)) {
+      this.visible = false;
+    }
+  };
+
+  onKeyDownWindow = (e: KeyboardEvent) => {
+    if (e.which === 27) {
+      this.visible = false;
+    }
+  };
+
+  render() {
+    if (!this.container) {
+      return;
+    }
+    const { style } = this.options;
+    ReactDOM.render(
+      <PopupMenu
+        menuItems={this.menuItems}
+        onClickItem={this.onClickItem}
+        visible={this.visible}
+        style={style}
+      />,
+      this.container,
+    );
+
+    if (this.visible) {
+      document.body.addEventListener('mousedown', this.onMousedownBody);
+      window.addEventListener('keydown', this.onKeyDownWindow);
+    } else {
+      document.body.removeEventListener('mousedown', this.onMousedownBody);
+      window.removeEventListener('keydown', this.onKeyDownWindow);
     }
   }
 }
