@@ -20,7 +20,7 @@ class PopupMenu extends React.Component<IAXUIContextPopupMenu> {
 
     return (
       <div className="axui-contextmenu" data-align="top-left" style={style}>
-        <MenuItems items={menuItems} onClickItem={onClickItem} />
+        <MenuItems items={menuItems} onClickItem={onClickItem} visible={true} />
       </div>
     );
   }

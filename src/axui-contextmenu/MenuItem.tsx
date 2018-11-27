@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IAXUIContextMenuOnClickItem } from './AXUIContextMenu';
+import { IAXUIContextMenuOnHoverItem } from './MenuItems';
 
 export interface IAXUIContextMenuItem {
   label?: string;
@@ -12,12 +13,14 @@ export interface IAXUIContextMenuItem {
     browserWindow: Window,
     event: React.MouseEvent<HTMLDivElement>,
   ) => void;
+  opened?: boolean;
 }
 
 const MenuItem: React.SFC<{
   item: IAXUIContextMenuItem;
   onClickItem: IAXUIContextMenuOnClickItem;
-}> = ({ item, onClickItem }) => {
+  onHoverItem: IAXUIContextMenuOnHoverItem;
+}> = ({ item, onClickItem, onHoverItem }) => {
   const { type = 'normal', label, icon, checked, submenu, click } = item;
 
   switch (type) {
@@ -31,9 +34,13 @@ const MenuItem: React.SFC<{
               onClickItem(item, window, e);
             }
           }}
+          onMouseOver={e => {
+            onHoverItem(item, e);
+          }}
         >
           {icon ? <span className="icon-wrapper">{icon}</span> : null}
           {item.label}
+          {item.opened ? 'T' : 'F'}
         </div>
       );
     case 'separator':
