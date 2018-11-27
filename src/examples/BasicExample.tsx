@@ -4,7 +4,7 @@ import ContextMenu, {
   IAXUIContextMenu,
   IAXUIContextMenuItem,
 } from 'axui-contextmenu';
-import 'axui-contextmenu/style.css';
+import 'axui-contextmenu/scss/index.scss';
 import { styled } from 'styledComponents';
 import { Icon } from 'antd';
 
