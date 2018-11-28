@@ -5,7 +5,7 @@ import { IAXUIContextMenuItem } from './MenuItem';
 
 export interface IAXUIContextMenuOptions {
   id?: string;
-  style?: { [key: string]: string | number };
+  style?: React.CSSProperties;
 }
 
 export interface IAXUIContextMenuPopupOption {
@@ -106,13 +106,18 @@ class AXUIContextMenu implements IAXUIContextMenu {
     if (!this.container) {
       return;
     }
-    const { style } = this.options;
+    const { style = {} } = this.options;
+
     ReactDOM.render(
       <PopupMenu
         menuItems={this.menuItems}
         onClickItem={this.onClickItem}
         visible={this.visible}
-        userStyle={style}
+        parentOffset={{
+          top: this.container.offsetTop,
+          left: this.container.offsetLeft,
+        }}
+        userStyle={{ ...style, ...{ left: 0, top: 0 } }}
       />,
       this.container,
     );

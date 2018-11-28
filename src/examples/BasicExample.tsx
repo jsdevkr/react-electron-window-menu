@@ -4,7 +4,7 @@ import ContextMenu, {
   IAXUIContextMenu,
   IAXUIContextMenuItem,
 } from 'axui-contextmenu';
-import 'axui-contextmenu/scss/index.scss';
+import 'axui-contextmenu/style.scss';
 import { styled } from 'styledComponents';
 import { Icon } from 'antd';
 
@@ -16,8 +16,8 @@ const Container = styled.div`
   align-items: center;
 `;
 
-interface IProps { }
-interface IState { }
+interface IProps {}
+interface IState {}
 
 class BasicExample extends React.Component<IProps, IState> {
   menu: IAXUIContextMenu;
@@ -52,34 +52,66 @@ class BasicExample extends React.Component<IProps, IState> {
   componentDidMount() {
     this.menu.setMenu([
       {
-        label: '뒤로',
+        label: 'Back',
         icon: <Icon type="arrow-left" />,
         click: this.onClickMenu,
       },
       {
-        label: '앞으로',
+        label: 'Forward',
         icon: <Icon type="arrow-right" />,
         click: this.onClickMenu,
       },
       {
-        label: '새로고침',
+        label: 'Reload',
         icon: <Icon type="caret-right" />,
         click: this.onClickMenu,
       },
       { type: 'separator' },
-      { label: '다른이름으로 저장', click: this.onClickMenu },
-      { label: '인쇄', click: this.onClickMenu },
+      { label: 'Save as', click: this.onClickMenu },
+      { label: 'Print', click: this.onClickMenu },
       {
-        label: '전송...',
-        click: this.onClickMenu,
+        label: 'send to...',
         submenu: [
-          { label: '페이스북에 보내기', click: this.onClickMenu },
-          { label: '이메일로 보내기', click: this.onClickMenu },
+          {
+            label: 'Github',
+            icon: <Icon type="github" />,
+            click: this.onClickMenu,
+          },
+          {
+            label: 'Gitlab',
+            icon: <Icon type="gitlab" />,
+            click: this.onClickMenu,
+          },
+          {
+            label: 'Twitter',
+            icon: <Icon type="twitter" />,
+            click: this.onClickMenu,
+          },
+          {
+            label: 'Facebook',
+            icon: <Icon type="facebook" />,
+            click: this.onClickMenu,
+          },
+          {
+            label: 'Google+',
+            icon: <Icon type="google-plus" />,
+            click: this.onClickMenu,
+          },
+          {
+            label: 'Slack',
+            icon: <Icon type="slack-square" />,
+            click: this.onClickMenu,
+          },
+          {
+            label: 'Email',
+            icon: <Icon type="mail" />,
+            click: this.onClickMenu,
+          },
         ],
       },
       { type: 'separator' },
-      { label: '페이지 소스보기', click: this.onClickMenu },
-      { label: '저장', click: this.onClickMenu },
+      { label: 'View Source', click: this.onClickMenu },
+      { label: 'Save', click: this.onClickMenu },
     ]);
   }
 }

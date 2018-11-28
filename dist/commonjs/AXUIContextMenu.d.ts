@@ -2,9 +2,7 @@ import * as React from 'react';
 import { IAXUIContextMenuItem } from './MenuItem';
 export interface IAXUIContextMenuOptions {
     id?: string;
-    style?: {
-        [key: string]: string | number;
-    };
+    style?: React.CSSProperties;
 }
 export interface IAXUIContextMenuPopupOption {
     x?: number;

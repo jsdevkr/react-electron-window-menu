@@ -3,6 +3,7 @@ import * as React from 'react';
 import { styled, StyledContainer } from 'styledComponents';
 import { BasicExample } from 'examples';
 import { CodeViewer } from 'components';
+import { Checkbox, Divider } from 'antd';
 
 const basicRaw = require('!raw-loader!examples/BasicExample.tsx');
 const axuiLogo = require('assets/axui-logo.png');
@@ -45,9 +46,17 @@ const Component = styled.div`
 `;
 
 interface IProps {}
-interface IState {}
+interface IState {
+  viewBasicRaw: boolean;
+}
 class Index extends React.Component<IProps, IState> {
+  state = {
+    viewBasicRaw: false,
+  };
+
   render() {
+    const { viewBasicRaw } = this.state;
+
     return (
       <Component>
         <header className={'app-header'}>
@@ -57,7 +66,7 @@ class Index extends React.Component<IProps, IState> {
             </div>
             <h1>axui-contextmenu</h1>
             <div>
-              {/* <GitHubButton
+              <GitHubButton
                 type="stargazers"
                 namespace="jsdevkr"
                 repo="axui-contextmenu"
@@ -66,7 +75,7 @@ class Index extends React.Component<IProps, IState> {
                 type="forks"
                 namespace="jsdevkr"
                 repo="axui-contextmenu"
-              /> */}
+              />
             </div>
           </StyledContainer>
         </header>
@@ -85,8 +94,19 @@ import ContextMenu, { IAXUIContextMenuProps } from 'axui-contextmenu';
 
           <h2>basic</h2>
           <BasicExample />
-
-          <CodeViewer code={basicRaw} />
+          <Divider />
+          <p>
+            <Checkbox
+              onChange={e => {
+                this.setState({
+                  viewBasicRaw: e.target.checked,
+                });
+              }}
+            >
+              View Source
+            </Checkbox>
+          </p>
+          {viewBasicRaw ? <CodeViewer code={basicRaw} /> : null}
         </StyledContainer>
       </Component>
     );

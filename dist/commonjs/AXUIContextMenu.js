@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __read = (this && this.__read) || function (o, n) {
     var m = typeof Symbol === "function" && o[Symbol.iterator];
     if (!m) return o;
@@ -57,6 +68,9 @@ var AXUIContextMenu = /** @class */ (function () {
         },
         set: function (tf) {
             this._visible = tf;
+            this.menuItems.forEach(function (n) {
+                n.opened = false;
+            });
             this.render();
         },
         enumerable: true,
@@ -92,8 +106,11 @@ var AXUIContextMenu = /** @class */ (function () {
         if (!this.container) {
             return;
         }
-        var style = this.options.style;
-        ReactDOM.render(React.createElement(PopupMenu_1.default, { menuItems: this.menuItems, onClickItem: this.onClickItem, visible: this.visible, style: style }), this.container);
+        var _a = this.options.style, style = _a === void 0 ? {} : _a;
+        ReactDOM.render(React.createElement(PopupMenu_1.default, { menuItems: this.menuItems, onClickItem: this.onClickItem, visible: this.visible, parentOffset: {
+                top: this.container.offsetTop,
+                left: this.container.offsetLeft,
+            }, userStyle: __assign({}, style, { left: 0, top: 0 }) }), this.container);
         if (this.visible) {
             document.body.addEventListener('mousedown', this.onMousedownBody);
             window.addEventListener('keydown', this.onKeyDownWindow);

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IAXUIContextMenuOnClickItem } from './AXUIContextMenu';
+import { IAXUIContextMenuOnHoverItem } from './PopupMenu';
 export interface IAXUIContextMenuItem {
     label?: string;
     type?: 'normal' | 'separator' | 'checkbox';
@@ -7,9 +8,16 @@ export interface IAXUIContextMenuItem {
     checked?: boolean;
     submenu?: IAXUIContextMenuItem[];
     click?: (menuItem: IAXUIContextMenuItem, browserWindow: Window, event: React.MouseEvent<HTMLDivElement>) => void;
+    opened?: boolean;
 }
-declare const MenuItem: React.SFC<{
+interface IMenuItem {
     item: IAXUIContextMenuItem;
     onClickItem: IAXUIContextMenuOnClickItem;
-}>;
+    onHoverItem: IAXUIContextMenuOnHoverItem;
+}
+declare class MenuItem extends React.Component<IMenuItem> {
+    itemRef: React.RefObject<HTMLDivElement>;
+    constructor(props: IMenuItem);
+    render(): JSX.Element | null;
+}
 export default MenuItem;

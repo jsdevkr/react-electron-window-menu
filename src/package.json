@@ -1,0 +1,19 @@
+{
+  "name": "axui-contextmenu",
+  "version": "0.2.0",
+  "description": ":octocat: A simple react contextmenu component",
+  "jsnext:main": "es6/index.js",
+  "module": "es6/index.js",
+  "main": "commonjs/index.js",
+  "repository": "https://github.com/jsdevkr/axui-contextmenu",
+  "website": "http://axui-contextmenu.jsdev.kr",
+  "author": "tom@axisj.com",
+  "license": "MIT",
+  "keywords": [
+    "contextmenu, react-contextmenu, react-component, typescript"
+  ],
+  "peerDependencies": {
+    "react": "^16.4.0"
+  },
+  "scripts": {}
+}

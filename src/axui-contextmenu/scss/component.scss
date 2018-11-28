@@ -8,7 +8,7 @@
   border-radius: $axui-contextmenu-border-radius;
   padding: $axui-contextmenu-padding-size 0;
   margin-top: -$axui-contextmenu-padding-size - $axui-contextmenu-border-width;
-  
+
   user-select: none;
   cursor: default;
   min-width: $axui-contextmenu-min-width;
@@ -17,51 +17,31 @@
   color: $axui-contextmenu-item-font-color;
   font-weight: $axui-contextmenu-item-font-weight;
 
-  &[data-align="top-left"] {
-    left: 0;
-    top: 0;
-  }
-
-  &[data-align="top-right"] {
-    right: 0;
-    top: 0;
-  }
-
-  &[data-align="bottom-left"] {
-    left: 0;
-    bottom: 0;
-  }
-
-  &[data-align="bottom-right"] {
-    right: 0;
-    bottom: 0;
-  }
-
-
-  [data-ctx-item]{
+  [data-ctx-item] {
+    position: relative;
     padding: $axui-contextmenu-item-padding;
     line-height: $axui-contextmenu-line-height;
     white-space: nowrap;
     font-size: inherit;
     color: inherit;
     font-weight: inherit;
- 
+
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: stretch;
     align-items: center;
 
-    [data-label]{
-
+    [data-label] {
+      flex: 1;
     }
 
     [data-label-icon] {
       margin-right: $axui-contextmenu-padding-size;
     }
-    [data-addon]{
-  
-    }
-    [data-addon-icon]{
+
+    [data-addon] {}
+
+    [data-addon-icon] {
       display: inline-block;
       font-style: normal;
       vertical-align: -0.125em;
@@ -76,13 +56,14 @@
       background-color: $axui-contextmenu-item-hover-bg-color;
       color: $axui-contextmenu-item-hover-font-color;
     }
-    &[data-opened]{
+
+    &[data-opened] {
       background-color: $axui-contextmenu-item-hover-bg-color;
       color: $axui-contextmenu-item-hover-font-color;
     }
   }
 
-  [data-ctx-separator]{
+  [data-ctx-separator] {
     height: $axui-contextmenu-separator-height;
     background-color: $axui-contextmenu-separator-color;
     padding: 0;

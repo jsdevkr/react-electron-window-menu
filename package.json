@@ -1,6 +1,6 @@
 {
   "name": "axui-contextmenu",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": ":octocat: A simple react contextmenu component",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "publish:minor": "cd dist && npm version minor && cd .. && node ./scripts/syncVersion.js && npm run docs"
   },
   "betterScripts": {
-    "build:common": "cp ./README.md ./dist/README.md",
+    "build:common": "node-sass ./src/axui-contextmenu/style.scss dist/style.css --output-style compressed && rm -rf ./dist/scss && cp ./src/axui-contextmenu/style.scss ./dist/style.scss && cp -R ./src/axui-contextmenu/scss ./dist/scss && cp ./README.md ./dist/README.md",
     "build:es5": "rm -rf ./dist/commonjs && tsc --p tsconfig.es5.json",
     "build:es6": "rm -rf ./dist/es6 && tsc --p tsconfig.es6.json"
   },

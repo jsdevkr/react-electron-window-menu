@@ -34,6 +34,9 @@ class AXUIContextMenu {
     }
     set visible(tf) {
         this._visible = tf;
+        this.menuItems.forEach(n => {
+            n.opened = false;
+        });
         this.render();
     }
     setMenu(menuItems) {
@@ -66,8 +69,11 @@ class AXUIContextMenu {
         if (!this.container) {
             return;
         }
-        const { style } = this.options;
-        ReactDOM.render(React.createElement(PopupMenu_1.default, { menuItems: this.menuItems, onClickItem: this.onClickItem, visible: this.visible, style: style }), this.container);
+        const { style = {} } = this.options;
+        ReactDOM.render(React.createElement(PopupMenu_1.default, { menuItems: this.menuItems, onClickItem: this.onClickItem, visible: this.visible, parentOffset: {
+                top: this.container.offsetTop,
+                left: this.container.offsetLeft,
+            }, userStyle: Object.assign({}, style, { left: 0, top: 0 }) }), this.container);
         if (this.visible) {
             document.body.addEventListener('mousedown', this.onMousedownBody);
             window.addEventListener('keydown', this.onKeyDownWindow);

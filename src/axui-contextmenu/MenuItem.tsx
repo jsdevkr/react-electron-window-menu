@@ -2,7 +2,6 @@ import * as React from 'react';
 import { IAXUIContextMenuOnClickItem } from './AXUIContextMenu';
 import PopupMenu, { IAXUIContextMenuOnHoverItem } from './PopupMenu';
 
-
 export interface IAXUIContextMenuItem {
   label?: string;
   type?: 'normal' | 'separator' | 'checkbox';
@@ -17,30 +16,50 @@ export interface IAXUIContextMenuItem {
   opened?: boolean;
 }
 
-const SubmenuIcon: React.SFC<{}> = () => <svg viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor" aria-hidden="true">
-  <path d="M715.8 493.5L335 165.1c-14.2-12.2-35-1.2-35 18.5v656.8c0 19.7 20.8 30.7 35 18.5l380.8-328.4c10.9-9.4 10.9-27.6 0-37z" />
-</svg>;
+const SubmenuIcon: React.SFC<{}> = () => (
+  <svg
+    viewBox="0 0 1024 1024"
+    width="1em"
+    height="1em"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path d="M715.8 493.5L335 165.1c-14.2-12.2-35-1.2-35 18.5v656.8c0 19.7 20.8 30.7 35 18.5l380.8-328.4c10.9-9.4 10.9-27.6 0-37z" />
+  </svg>
+);
 
 const Submenu: React.SFC<{
-  item: IAXUIContextMenuItem;
+  submenu: IAXUIContextMenuItem[];
   onClickItem: IAXUIContextMenuOnClickItem;
-  itemRef: React.RefObject<HTMLDivElement>
-}> = ({ item, onClickItem, itemRef }) => {
-  const submenuStyle: any = {};
-
-  if (itemRef.current) {
-    submenuStyle.top = itemRef.current.offsetTop;
-    submenuStyle.left = itemRef.current.getBoundingClientRect().width;
+  itemRef: React.RefObject<HTMLDivElement>;
+}> = ({ submenu, onClickItem, itemRef }) => {
+  if (!itemRef.current) {
+    return null;
   }
 
-  return <>
-    <SubmenuIcon />
-    {item.opened && item.submenu ? <PopupMenu menuItems={item.submenu}
+  const itemRect = itemRef.current.getBoundingClientRect();
+
+  const submenuStyle: React.CSSProperties = {
+    top: 0,
+    left: itemRect.width,
+  };
+
+  return (
+    <PopupMenu
+      menuItems={submenu}
       onClickItem={onClickItem}
       visible={true}
-      userStyle={submenuStyle} /> : null}
-  </>;
-}
+      parentOffset={{
+        width: Number(itemRect.width),
+        height: Number(itemRect.height),
+        left: itemRect.left,
+        top: itemRect.top,
+        id: 'tom',
+      }}
+      userStyle={submenuStyle}
+    />
+  );
+};
 
 interface IMenuItem {
   item: IAXUIContextMenuItem;
@@ -48,7 +67,7 @@ interface IMenuItem {
   onHoverItem: IAXUIContextMenuOnHoverItem;
 }
 
-class MenuItem extends React.Component<IMenuItem>{
+class MenuItem extends React.Component<IMenuItem> {
   itemRef: React.RefObject<HTMLDivElement>;
 
   constructor(props: IMenuItem) {
@@ -74,24 +93,33 @@ class MenuItem extends React.Component<IMenuItem>{
             ref={this.itemRef}
             {...itemProps}
             onClick={e => {
-              if (click) {
+              // has click and dont have submenu
+              if (click && !item.submenu) {
                 click(item, window, e);
                 onClickItem(item, window, e);
               }
             }}
             onMouseOver={e => {
-              onHoverItem(item, e);
+              onHoverItem(item, e, true);
             }}
           >
-            <span data-label>
+            <div data-label>
               {icon ? <span data-label-icon>{icon}</span> : null}
               {item.label}
-            </span>
+            </div>
 
-            {item.submenu ?
-              <Submenu item={item} onClickItem={onClickItem} itemRef={this.itemRef} />
-              : null}
-
+            {item.submenu ? (
+              <>
+                <SubmenuIcon />
+                {item.opened ? (
+                  <Submenu
+                    submenu={item.submenu}
+                    onClickItem={onClickItem}
+                    itemRef={this.itemRef}
+                  />
+                ) : null}
+              </>
+            ) : null}
           </div>
         );
       case 'separator':
@@ -101,9 +129,8 @@ class MenuItem extends React.Component<IMenuItem>{
         return null;
       default:
         return null;
-
     }
   }
-};
+}
 
 export default MenuItem;
