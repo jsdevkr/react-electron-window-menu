@@ -109,7 +109,7 @@ class AXUIContextMenu implements IAXUIContextMenu {
         menuItems={this.menuItems}
         onClickItem={this.onClickItem}
         visible={this.visible}
-        style={style}
+        userStyle={style}
       />,
       this.container,
     );

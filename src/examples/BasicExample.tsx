@@ -16,8 +16,8 @@ const Container = styled.div`
   align-items: center;
 `;
 
-interface IProps {}
-interface IState {}
+interface IProps { }
+interface IState { }
 
 class BasicExample extends React.Component<IProps, IState> {
   menu: IAXUIContextMenu;
@@ -63,7 +63,7 @@ class BasicExample extends React.Component<IProps, IState> {
       },
       {
         label: '새로고침',
-        icon: <Icon type="redo" />,
+        icon: <Icon type="caret-right" />,
         click: this.onClickMenu,
       },
       { type: 'separator' },

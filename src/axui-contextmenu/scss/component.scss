@@ -33,28 +33,55 @@
     bottom: 0;
   }
 
-  .icon-wrapper {
-    margin-right: $axui-contextmenu-padding-size;
+
+  [data-ctx-item]{
+    padding: $axui-contextmenu-item-padding;
+    line-height: $axui-contextmenu-line-height;
+    white-space: nowrap;
+    font-size: inherit;
+    color: inherit;
+    font-weight: inherit;
+ 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    [data-label]{
+
+    }
+
+    [data-label-icon] {
+      margin-right: $axui-contextmenu-padding-size;
+    }
+    [data-addon]{
+  
+    }
+    [data-addon-icon]{
+      display: inline-block;
+      font-style: normal;
+      vertical-align: -0.125em;
+      text-align: center;
+      text-transform: none;
+      line-height: 0;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    &:hover {
+      background-color: $axui-contextmenu-item-hover-bg-color;
+      color: $axui-contextmenu-item-hover-font-color;
+    }
+    &[data-opened]{
+      background-color: $axui-contextmenu-item-hover-bg-color;
+      color: $axui-contextmenu-item-hover-font-color;
+    }
   }
-}
 
-.axui-contextmenu-item {
-  padding: $axui-contextmenu-item-padding;
-  line-height: $axui-contextmenu-line-height;
-  white-space: nowrap;
-  font-size: inherit;
-  color: inherit;
-  font-weight: inherit;
-
-  &:hover {
-    background-color: $axui-contextmenu-item-hover-bg-color;
-    color: $axui-contextmenu-item-hover-font-color;
+  [data-ctx-separator]{
+    height: $axui-contextmenu-separator-height;
+    background-color: $axui-contextmenu-separator-color;
+    padding: 0;
+    margin: $axui-contextmenu-separator-margin;
   }
-}
-
-.axui-contextmenu-separator {
-  height: $axui-contextmenu-separator-height;
-  background-color: $axui-contextmenu-separator-color;
-  padding: 0;
-  margin: $axui-contextmenu-separator-margin;
 }
