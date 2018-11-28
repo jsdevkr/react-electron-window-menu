@@ -1,10 +1,14 @@
 .axui-contextmenu {
   position: absolute;
+  box-sizing: border-box;
+
   background: $axui-contextmenu-bg-color;
-  border: $axui-contextmenu-border;
+  border: $axui-contextmenu-border-width $axui-contextmenu-border-style $axui-contextmenu-border-color;
   box-shadow: $axui-contextmenu-box-shadow;
   border-radius: $axui-contextmenu-border-radius;
   padding: $axui-contextmenu-padding-size 0;
+  margin-top: -$axui-contextmenu-padding-size - $axui-contextmenu-border-width;
+  
   user-select: none;
   cursor: default;
   min-width: $axui-contextmenu-min-width;

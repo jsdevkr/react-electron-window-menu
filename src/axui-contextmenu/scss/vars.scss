@@ -1,7 +1,9 @@
 /* This style designed like OSX */
 
 $axui-contextmenu-bg-color: #f6f6f6;
-$axui-contextmenu-border: 0.5px solid rgba(0, 0, 0, .2);
+$axui-contextmenu-border-width: 0.5px;
+$axui-contextmenu-border-style: solid;
+$axui-contextmenu-border-color: rgba(0, 0, 0, .2);
 $axui-contextmenu-box-shadow: 0 3px 12px rgba(0, 0, 0, .3);
 $axui-contextmenu-border-radius: 6px;
 $axui-contextmenu-padding-size: 4px;

@@ -43,6 +43,9 @@ class AXUIContextMenu implements IAXUIContextMenu {
 
   set visible(tf: boolean) {
     this._visible = tf;
+    this.menuItems.forEach(n => {
+      n.opened = false;
+    });
     this.render();
   }
 

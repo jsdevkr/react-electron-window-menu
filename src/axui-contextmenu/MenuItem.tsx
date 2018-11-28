@@ -24,9 +24,14 @@ const SubmenuIcon: React.SFC<{}> = () => <svg viewBox="0 0 1024 1024" width="1em
 const Submenu: React.SFC<{
   item: IAXUIContextMenuItem;
   onClickItem: IAXUIContextMenuOnClickItem;
-}> = ({ item, onClickItem }) => {
+  itemRef: React.RefObject<HTMLDivElement>
+}> = ({ item, onClickItem, itemRef }) => {
+  const submenuStyle: any = {};
 
-  const submenuStyle = {};
+  if (itemRef.current) {
+    submenuStyle.top = itemRef.current.offsetTop;
+    submenuStyle.left = itemRef.current.getBoundingClientRect().width;
+  }
 
   return <>
     <SubmenuIcon />
@@ -37,51 +42,67 @@ const Submenu: React.SFC<{
   </>;
 }
 
-const MenuItem: React.SFC<{
+interface IMenuItem {
   item: IAXUIContextMenuItem;
   onClickItem: IAXUIContextMenuOnClickItem;
   onHoverItem: IAXUIContextMenuOnHoverItem;
-}> = ({ item, onClickItem, onHoverItem }) => {
-  const { type = 'normal', label, icon, checked, submenu, click } = item;
-  const itemProps = {};
-  switch (type) {
-    case 'normal':
-      itemProps['data-ctx-item'] = true;
-      if (item.opened) {
-        itemProps['data-opened'] = true;
-      }
+}
 
-      return (
-        <div
-          {...itemProps}
-          onClick={e => {
-            if (click) {
-              click(item, window, e);
-              onClickItem(item, window, e);
-            }
-          }}
-          onMouseOver={e => {
-            onHoverItem(item, e);
-          }}
-        >
-          <span data-label>
-            {icon ? <span data-label-icon>{icon}</span> : null}
-            {item.label}
-          </span>
+class MenuItem extends React.Component<IMenuItem>{
+  itemRef: React.RefObject<HTMLDivElement>;
 
-          {item.submenu ?
-            <Submenu item={item} onClickItem={onClickItem} />
-            : null}
+  constructor(props: IMenuItem) {
+    super(props);
+    this.itemRef = React.createRef();
+  }
 
-        </div>
-      );
-    case 'separator':
-      itemProps['data-ctx-separator'] = true;
-      return <div {...itemProps} />;
-    case 'checkbox':
-      return null;
-    default:
-      return null;
+  render() {
+    const { item, onClickItem, onHoverItem } = this.props;
+    const { type = 'normal', label, icon, checked, submenu, click } = item;
+
+    const itemProps = {};
+
+    switch (type) {
+      case 'normal':
+        itemProps['data-ctx-item'] = true;
+        if (item.opened) {
+          itemProps['data-opened'] = true;
+        }
+
+        return (
+          <div
+            ref={this.itemRef}
+            {...itemProps}
+            onClick={e => {
+              if (click) {
+                click(item, window, e);
+                onClickItem(item, window, e);
+              }
+            }}
+            onMouseOver={e => {
+              onHoverItem(item, e);
+            }}
+          >
+            <span data-label>
+              {icon ? <span data-label-icon>{icon}</span> : null}
+              {item.label}
+            </span>
+
+            {item.submenu ?
+              <Submenu item={item} onClickItem={onClickItem} itemRef={this.itemRef} />
+              : null}
+
+          </div>
+        );
+      case 'separator':
+        itemProps['data-ctx-separator'] = true;
+        return <div {...itemProps} />;
+      case 'checkbox':
+        return null;
+      default:
+        return null;
+
+    }
   }
 };
 
