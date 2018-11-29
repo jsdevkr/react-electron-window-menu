@@ -76,6 +76,8 @@ class Index extends React.Component<IProps, IState> {
                 namespace="jsdevkr"
                 repo="axui-contextmenu"
               />
+              <img src="https://badge.fury.io/js/axui-contextmenu.svg" />{' '}
+              <img src="https://img.shields.io/npm/dm/axui-contextmenu.svg" />{' '}
             </div>
           </StyledContainer>
         </header>
