@@ -67,8 +67,10 @@ class BasicExample extends React.Component<IProps, IState> {
         click: this.onClickMenu,
       },
       { type: 'separator' },
-      { label: 'Save as', click: this.onClickMenu },
-      { label: 'Print', click: this.onClickMenu },
+      { label: 'Save as', click: this.onClickMenu, visible: false },
+      { label: 'Print', click: this.onClickMenu, enabled: false },
+      { type: 'checkbox', label: 'Action option 1' },
+      { type: 'checkbox', label: 'Action option 2', checked: true },
       {
         label: 'send to...',
         submenu: [

@@ -4,6 +4,7 @@ import PopupMenu, { IAXUIContextMenuOnHoverItem } from './PopupMenu';
 
 export interface IAXUIContextMenuItem {
   label?: string;
+  sublabel?: string;
   type?: 'normal' | 'separator' | 'checkbox';
   icon?: string | React.ReactElement<any>;
   checked?: boolean;
@@ -14,6 +15,9 @@ export interface IAXUIContextMenuItem {
     event: React.MouseEvent<HTMLDivElement>,
   ) => void;
   opened?: boolean;
+  enabled?: boolean;
+  visible?: boolean;
+  accelerator?: string;
 }
 
 const SubmenuIcon: React.SFC<{}> = () => (
