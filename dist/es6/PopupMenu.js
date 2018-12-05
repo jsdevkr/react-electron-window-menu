@@ -92,13 +92,7 @@ class PopupMenu extends React.Component {
                 top: 0,
             };
         const menuStyles = Object.assign({}, userStyle, renderStyles);
-        return (React.createElement("div", { className: "axui-contextmenu", style: menuStyles, ref: this.popupMenuRef }, menuItems.map((item, i) => (React.createElement(MenuItem_1.default
-        // pLeft={this.state.newLeft}
-        // pTop={this.state.newTop}
-        , { 
-            // pLeft={this.state.newLeft}
-            // pTop={this.state.newTop}
-            key: i, item: item, onClickItem: onClickItem, onHoverItem: this.onHoverItem })))));
+        return (React.createElement("div", { className: "axui-contextmenu", style: menuStyles, ref: this.popupMenuRef }, menuItems.map((item, i) => (React.createElement(MenuItem_1.default, { key: i, item: item, onClickItem: onClickItem, onHoverItem: this.onHoverItem })))));
     }
 }
 exports.default = PopupMenu;

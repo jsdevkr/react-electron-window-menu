@@ -44,7 +44,12 @@ var AXUIContextMenu = /** @class */ (function () {
         this.menuItems = [];
         this._visible = false;
         this.onClickItem = function (menuItem, w, e) {
-            // console.log(menuItem);
+            var _a = menuItem.type, type = _a === void 0 ? 'normal' : _a, _b = menuItem.enabled, enabled = _b === void 0 ? true : _b, _c = menuItem.visible, visible = _c === void 0 ? true : _c;
+            if (enabled) {
+                if (type === 'checkbox') {
+                    menuItem.checked = !menuItem.checked;
+                }
+            }
             // 메뉴가 클릭되었다는 것은 인지하는 곳.
             _this.visible = false;
         };

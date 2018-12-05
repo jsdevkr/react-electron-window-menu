@@ -52,9 +52,10 @@ class BasicExample extends React.Component<IProps, IState> {
   componentDidMount() {
     this.menu.setMenu([
       {
-        label: 'Back',
+        label: 'Back (enabled: false)',
         icon: <Icon type="arrow-left" />,
         click: this.onClickMenu,
+        enabled: false,
       },
       {
         label: 'Forward',
@@ -68,9 +69,27 @@ class BasicExample extends React.Component<IProps, IState> {
       },
       { type: 'separator' },
       { label: 'Save as', click: this.onClickMenu, visible: false },
-      { label: 'Print', click: this.onClickMenu, enabled: false },
-      { type: 'checkbox', label: 'Action option 1' },
-      { type: 'checkbox', label: 'Action option 2', checked: true },
+      {
+        label: 'Print (enabled: false)',
+        click: this.onClickMenu,
+        enabled: false,
+      },
+      {
+        type: 'checkbox',
+        label: 'Action option 1',
+        click: (menuItem, w, e) => {
+          console.log(menuItem);
+        },
+      },
+      {
+        type: 'checkbox',
+        label: 'Action option 2 (enabled: false)',
+        checked: true,
+        enabled: false,
+        click: (menuItem, w, e) => {
+          console.log(menuItem);
+        },
+      },
       {
         label: 'send to...',
         submenu: [
@@ -98,11 +117,13 @@ class BasicExample extends React.Component<IProps, IState> {
             label: 'Google+',
             icon: <Icon type="google-plus" />,
             click: this.onClickMenu,
+            visible: false,
           },
           {
-            label: 'Slack',
+            label: 'Slack (enabled: false)',
             icon: <Icon type="slack-square" />,
             click: this.onClickMenu,
+            enabled: false,
           },
           {
             label: 'Email',

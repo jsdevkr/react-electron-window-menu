@@ -3,12 +3,16 @@ import { IAXUIContextMenuOnClickItem } from './AXUIContextMenu';
 import { IAXUIContextMenuOnHoverItem } from './PopupMenu';
 export interface IAXUIContextMenuItem {
     label?: string;
+    sublabel?: string;
     type?: 'normal' | 'separator' | 'checkbox';
     icon?: string | React.ReactElement<any>;
     checked?: boolean;
     submenu?: IAXUIContextMenuItem[];
     click?: (menuItem: IAXUIContextMenuItem, browserWindow: Window, event: React.MouseEvent<HTMLDivElement>) => void;
     opened?: boolean;
+    enabled?: boolean;
+    visible?: boolean;
+    accelerator?: string;
 }
 interface IMenuItem {
     item: IAXUIContextMenuItem;

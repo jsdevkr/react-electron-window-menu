@@ -162,8 +162,6 @@ class PopupMenu extends React.Component<
       >
         {menuItems.map((item, i) => (
           <MenuItem
-            // pLeft={this.state.newLeft}
-            // pTop={this.state.newTop}
             key={i}
             item={item}
             onClickItem={onClickItem}

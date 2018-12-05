@@ -25,27 +25,9 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var PopupMenu_1 = require("./PopupMenu");
-var SubmenuIcon = function () { return (React.createElement("svg", { viewBox: "0 0 1024 1024", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true" },
-    React.createElement("path", { d: "M715.8 493.5L335 165.1c-14.2-12.2-35-1.2-35 18.5v656.8c0 19.7 20.8 30.7 35 18.5l380.8-328.4c10.9-9.4 10.9-27.6 0-37z" }))); };
-var Submenu = function (_a) {
-    var submenu = _a.submenu, onClickItem = _a.onClickItem, itemRef = _a.itemRef;
-    if (!itemRef.current) {
-        return null;
-    }
-    var itemRect = itemRef.current.getBoundingClientRect();
-    var submenuStyle = {
-        top: 0,
-        left: itemRect.width,
-    };
-    return (React.createElement(PopupMenu_1.default, { menuItems: submenu, onClickItem: onClickItem, visible: true, parentOffset: {
-            width: Number(itemRect.width),
-            height: Number(itemRect.height),
-            left: itemRect.left,
-            top: itemRect.top,
-            id: 'tom',
-        }, userStyle: submenuStyle }));
-};
+var CheckboxIcon_1 = require("./CheckboxIcon");
+var SubmenuIcon_1 = require("./SubmenuIcon");
+var Submenu_1 = require("./Submenu");
 var MenuItem = /** @class */ (function (_super) {
     __extends(MenuItem, _super);
     function MenuItem(props) {
@@ -55,34 +37,40 @@ var MenuItem = /** @class */ (function (_super) {
     }
     MenuItem.prototype.render = function () {
         var _a = this.props, item = _a.item, onClickItem = _a.onClickItem, onHoverItem = _a.onHoverItem;
-        var _b = item.type, type = _b === void 0 ? 'normal' : _b, label = item.label, icon = item.icon, checked = item.checked, submenu = item.submenu, click = item.click;
+        var _b = item.type, type = _b === void 0 ? 'normal' : _b, label = item.label, icon = item.icon, checked = item.checked, submenu = item.submenu, click = item.click, _c = item.enabled, enabled = _c === void 0 ? true : _c, _d = item.visible, visible = _d === void 0 ? true : _d;
         var itemProps = {};
+        if (!visible) {
+            return null;
+        }
         switch (type) {
             case 'normal':
+            case 'checkbox':
                 itemProps['data-ctx-item'] = true;
+                itemProps['data-enabled'] = enabled;
                 if (item.opened) {
                     itemProps['data-opened'] = true;
                 }
                 return (React.createElement("div", __assign({ ref: this.itemRef }, itemProps, { onClick: function (e) {
                         // has click and dont have submenu
-                        if (click && !item.submenu) {
-                            click(item, window, e);
+                        if (!item.submenu && enabled) {
                             onClickItem(item, window, e);
+                            if (click) {
+                                click(item, window, e);
+                            }
                         }
                     }, onMouseOver: function (e) {
                         onHoverItem(item, e, true);
                     } }),
+                    React.createElement("div", { "data-checkbox": true }, item.checked && React.createElement(CheckboxIcon_1.default, null)),
                     React.createElement("div", { "data-label": true },
-                        icon ? React.createElement("span", { "data-label-icon": true }, icon) : null,
+                        icon && React.createElement("span", { "data-label-icon": true }, icon),
                         item.label),
-                    item.submenu ? (React.createElement(React.Fragment, null,
-                        React.createElement(SubmenuIcon, null),
-                        item.opened ? (React.createElement(Submenu, { submenu: item.submenu, onClickItem: onClickItem, itemRef: this.itemRef })) : null)) : null));
+                    item.submenu && (React.createElement(React.Fragment, null,
+                        React.createElement(SubmenuIcon_1.default, null),
+                        item.opened && (React.createElement(Submenu_1.default, { submenu: item.submenu, onClickItem: onClickItem, itemRef: this.itemRef }))))));
             case 'separator':
                 itemProps['data-ctx-separator'] = true;
                 return React.createElement("div", __assign({}, itemProps));
-            case 'checkbox':
-                return null;
             default:
                 return null;
         }

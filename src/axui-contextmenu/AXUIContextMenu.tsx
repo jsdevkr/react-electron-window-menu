@@ -83,7 +83,13 @@ class AXUIContextMenu implements IAXUIContextMenu {
   }
 
   onClickItem: IAXUIContextMenuOnClickItem = (menuItem, w, e) => {
-    // console.log(menuItem);
+    const { type = 'normal', enabled = true, visible = true } = menuItem;
+
+    if (enabled) {
+      if (type === 'checkbox') {
+        menuItem.checked = !menuItem.checked;
+      }
+    }
     // 메뉴가 클릭되었다는 것은 인지하는 곳.
     this.visible = false;
   };
