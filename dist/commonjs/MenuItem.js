@@ -65,9 +65,9 @@ var MenuItem = /** @class */ (function (_super) {
                     React.createElement("div", { "data-label": true },
                         icon && React.createElement("span", { "data-label-icon": true }, icon),
                         item.label),
-                    item.submenu && (React.createElement(React.Fragment, null,
+                    item.submenu ? (React.createElement(React.Fragment, null,
                         React.createElement(SubmenuIcon_1.default, null),
-                        item.opened && (React.createElement(Submenu_1.default, { submenu: item.submenu, onClickItem: onClickItem, itemRef: this.itemRef }))))));
+                        item.opened && (React.createElement(Submenu_1.default, { submenu: item.submenu, onClickItem: onClickItem, itemRef: this.itemRef })))) : (React.createElement("div", { "data-accelerator": true }, item.accelerator))));
             case 'separator':
                 itemProps['data-ctx-separator'] = true;
                 return React.createElement("div", __assign({}, itemProps));

@@ -89,7 +89,7 @@ class MenuItem extends React.Component<IMenuItem> {
               {item.label}
             </div>
 
-            {item.submenu && (
+            {item.submenu ? (
               <>
                 <SubmenuIcon />
                 {item.opened && (
@@ -100,6 +100,8 @@ class MenuItem extends React.Component<IMenuItem> {
                   />
                 )}
               </>
+            ) : (
+              <div data-accelerator>{item.accelerator}</div>
             )}
           </div>
         );

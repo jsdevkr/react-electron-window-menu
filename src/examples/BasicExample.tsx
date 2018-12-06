@@ -61,6 +61,7 @@ class BasicExample extends React.Component<IProps, IState> {
         label: 'Forward',
         icon: <Icon type="arrow-right" />,
         click: this.onClickMenu,
+        accelerator: 'Cmd+F',
       },
       {
         label: 'Reload',

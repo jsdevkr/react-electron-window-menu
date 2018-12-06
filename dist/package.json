@@ -1,6 +1,6 @@
 {
     "name": "axui-contextmenu",
-    "version": "0.3.1",
+    "version": "0.4.0",
     "description": ":octocat: A simple react contextmenu component",
     "jsnext:main": "es6/index.js",
     "module": "es6/index.js",

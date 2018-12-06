@@ -43,6 +43,10 @@
       width: $axui-contextmenu-item-checkbox-width;
     }
 
+    [data-accelerator] {
+      font-size: 0.8em;
+    }
+
     &:hover {
       background-color: $axui-contextmenu-item-hover-bg-color;
       color: $axui-contextmenu-item-hover-font-color;
