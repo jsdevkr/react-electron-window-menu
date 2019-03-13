@@ -11,6 +11,8 @@ $ npm i react-electron-window-menu
 
 ### MenuBar
 
+View Demo : [https://codesandbox.io/s/qlz936p539](https://codesandbox.io/s/qlz936p539)
+
 ```js
 import * as React from 'react';
 import { MenuBar, IREWMenu } from 'react-electron-window-menu';
@@ -185,6 +187,8 @@ export default MenuBarExample;
 
 ### ContextMenu
 
+View Demo : [https://codesandbox.io/s/9j6m3ojo3o](https://codesandbox.io/s/9j6m3ojo3o)
+
 ```js
 import * as React from 'react';
 import { ContextMenu, IREWMenu } from 'react-electron-window-menu';
@@ -326,8 +330,6 @@ class ContextMenuExample extends React.Component<IProps, IState> {
 
 export default ContextMenuExample;
 ```
-
-## View Demo : [https://codesandbox.io/s/9j6m3ojo3o](https://codesandbox.io/s/9j6m3ojo3o)
 
 # Version history
 
