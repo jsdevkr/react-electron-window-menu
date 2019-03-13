@@ -1,19 +1,19 @@
 {
-    "name": "axui-contextmenu",
-    "version": "0.4.0",
-    "description": ":octocat: A simple react contextmenu component",
-    "jsnext:main": "es6/index.js",
-    "module": "es6/index.js",
-    "main": "commonjs/index.js",
-    "repository": "https://github.com/jsdevkr/axui-contextmenu",
-    "website": "http://axui-contextmenu.jsdev.kr",
-    "author": "tom@axisj.com",
-    "license": "MIT",
-    "keywords": [
-        "contextmenu, react-contextmenu, react-component, typescript"
-    ],
-    "peerDependencies": {
-        "react": "^16.4.0"
-    },
-    "scripts": {}
+  "name": "react-electron-window-menu",
+  "version": "0.4.0",
+  "description": ":octocat: React Component that render a menu with 'Electron Menu' in the Windows environment.",
+  "jsnext:main": "es6/index.js",
+  "module": "es6/index.js",
+  "main": "commonjs/index.js",
+  "repository": "https://github.com/jsdevkr/react-electron-window-menu",
+  "website": "http://react-electron-window-menu.jsdev.kr",
+  "author": "tom@axisj.com",
+  "license": "MIT",
+  "keywords": [
+    "contextmenu, react-contextmenu, react-component, typescript, electron, menu, react, windows"
+  ],
+  "peerDependencies": {
+    "react": "^16.4.0"
+  },
+  "scripts": {}
 }

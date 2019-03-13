@@ -1,7 +1,7 @@
 {
-  "name": "axui-contextmenu",
+  "name": "react-electron-window-menu",
   "version": "0.4.0",
-  "description": ":octocat: A simple react contextmenu component",
+  "description": ":octocat: React Component that render a menu with 'Electron Menu' in the Windows environment.",
   "main": "index.js",
   "scripts": {
     "start": "react-app-rewired start --scripts-version react-scripts-ts",
@@ -15,7 +15,7 @@
     "pub:minor": "cd dist && npm version minor && cd .. && node ./scripts/syncVersion.js && npm run docs"
   },
   "betterScripts": {
-    "build:common": "node-sass ./src/axui-contextmenu/style.scss dist/style.css --output-style compressed && rm -rf ./dist/scss && cp ./src/axui-contextmenu/style.scss ./dist/style.scss && cp -R ./src/axui-contextmenu/scss ./dist/scss && cp ./README.md ./dist/README.md",
+    "build:common": "node-sass ./src/react-electron-window-menu/style.scss dist/style.css --output-style compressed && rm -rf ./dist/scss && cp ./src/react-electron-window-menu/style.scss ./dist/style.scss && cp -R ./src/react-electron-window-menu/scss ./dist/scss && cp ./README.md ./dist/README.md",
     "build:es5": "rm -rf ./dist/commonjs && tsc --p tsconfig.es5.json",
     "build:es6": "rm -rf ./dist/es6 && tsc --p tsconfig.es6.json"
   },

@@ -1,10 +1,7 @@
 import * as React from 'react';
 
-import ContextMenu, {
-  IAXUIContextMenu,
-  IAXUIContextMenuItem,
-} from 'axui-contextmenu';
-import 'axui-contextmenu/style.scss';
+import { ContextMenu, IREWMenu } from 'react-electron-window-menu';
+import 'react-electron-window-menu/style.scss';
 import { styled } from 'styledComponents';
 import { Icon } from 'antd';
 
@@ -19,8 +16,8 @@ const Container = styled.div`
 interface IProps {}
 interface IState {}
 
-class BasicExample extends React.Component<IProps, IState> {
-  menu: IAXUIContextMenu;
+class ContextMenuExample extends React.Component<IProps, IState> {
+  menu: IREWMenu.IContextMenu;
   state = {};
 
   constructor(props: IProps) {
@@ -32,7 +29,7 @@ class BasicExample extends React.Component<IProps, IState> {
     });
   }
 
-  onClickMenu: IAXUIContextMenuItem['click'] = (menuItem, w, e) => {
+  onClickMenu: IREWMenu.OnClickItem = (menuItem, w, e) => {
     console.log(menuItem);
   };
 
@@ -140,4 +137,4 @@ class BasicExample extends React.Component<IProps, IState> {
   }
 }
 
-export default BasicExample;
+export default ContextMenuExample;

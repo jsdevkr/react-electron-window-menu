@@ -1,38 +1,10 @@
 import * as React from 'react';
-import MenuItem, { IAXUIContextMenuItem } from './MenuItem';
-import { IAXUIContextMenuOnClickItem } from './AXUIContextMenu';
-
-export interface IAXUIContextPopupMenuProps {
-  visible: boolean;
-  menuItems: IAXUIContextMenuItem[];
-  onClickItem: IAXUIContextMenuOnClickItem;
-  parentOffset: {
-    left: number;
-    top: number;
-    width?: number;
-    height?: number;
-    id?: string;
-  };
-  userStyle?: React.CSSProperties;
-}
-
-interface IAXUIContextPopupMenuState {
-  visible: boolean;
-  positioned: boolean;
-  newLeft: number;
-  newTop: number;
-  menuItems: IAXUIContextMenuItem[];
-}
-
-export type IAXUIContextMenuOnHoverItem = (
-  menuItem: IAXUIContextMenuItem,
-  event: React.MouseEvent<HTMLDivElement>,
-  hover: boolean,
-) => void;
+import MenuItem from './MenuItem';
+import { IREWMenu } from '../common/@types';
 
 class PopupMenu extends React.Component<
-  IAXUIContextPopupMenuProps,
-  IAXUIContextPopupMenuState
+  IREWMenu.IPopupMenuProps,
+  IREWMenu.IPopupMenuState
 > {
   state = {
     visible: true,
@@ -45,8 +17,8 @@ class PopupMenu extends React.Component<
   popupMenuRef: React.RefObject<HTMLDivElement>;
 
   static getDerivedStateFromProps(
-    props: IAXUIContextPopupMenuProps,
-    state: IAXUIContextPopupMenuState,
+    props: IREWMenu.IPopupMenuProps,
+    state: IREWMenu.IPopupMenuState,
   ) {
     let nextState = state;
     let needChange = false;
@@ -68,7 +40,7 @@ class PopupMenu extends React.Component<
     return needChange ? nextState : null;
   }
 
-  constructor(props: IAXUIContextPopupMenuProps) {
+  constructor(props: IREWMenu.IPopupMenuProps) {
     super(props);
     this.popupMenuRef = React.createRef();
   }
@@ -111,7 +83,7 @@ class PopupMenu extends React.Component<
     }
   };
 
-  onHoverItem: IAXUIContextMenuOnHoverItem = (item, e, hover) => {
+  onHoverItem: IREWMenu.OnHoverItem = (item, e, hover) => {
     this.setState(prevState => {
       prevState.menuItems.forEach(n => {
         if (n === item) {
@@ -156,7 +128,7 @@ class PopupMenu extends React.Component<
 
     return (
       <div
-        className="axui-contextmenu"
+        className="rewm-contextmenu"
         style={menuStyles}
         ref={this.popupMenuRef}
       >

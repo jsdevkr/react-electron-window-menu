@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { IAXUIContextMenuItem } from './MenuItem';
-import { IAXUIContextMenuOnClickItem } from './AXUIContextMenu';
 import PopupMenu from './PopupMenu';
+import { IREWMenu } from '../common/@types';
 
 const Submenu: React.SFC<{
-  submenu: IAXUIContextMenuItem[];
-  onClickItem: IAXUIContextMenuOnClickItem;
+  submenu: IREWMenu.IMenuItem[];
+  onClickItem: IREWMenu.OnClickItem;
   itemRef: React.RefObject<HTMLDivElement>;
 }> = ({ submenu, onClickItem, itemRef }) => {
   if (!itemRef.current) {

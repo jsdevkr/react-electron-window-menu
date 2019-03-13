@@ -1,11 +1,12 @@
 import * as React from 'react';
 
 import { styled, StyledContainer } from 'styledComponents';
-import { BasicExample } from 'examples';
+import { ContextMenuExample, MenuBarExample } from 'examples';
 import { CodeViewer } from 'components';
 import { Checkbox, Divider } from 'antd';
 
-const basicRaw = require('!raw-loader!examples/BasicExample.tsx');
+const contextMenuRaw = require('!raw-loader!examples/ContextMenuExample.tsx');
+const menuBarRaw = require('!raw-loader!examples/MenuBarExample.tsx');
 const axuiLogo = require('assets/axui-logo.png');
 const GitHubButton = require('react-github-button');
 
@@ -47,15 +48,17 @@ const Component = styled.div`
 
 interface IProps {}
 interface IState {
+  viewMenuBarRaw: boolean;
   viewBasicRaw: boolean;
 }
 class Index extends React.Component<IProps, IState> {
   state = {
+    viewMenuBarRaw: false,
     viewBasicRaw: false,
   };
 
   render() {
-    const { viewBasicRaw } = this.state;
+    const { viewMenuBarRaw, viewBasicRaw } = this.state;
 
     return (
       <Component>
@@ -64,18 +67,23 @@ class Index extends React.Component<IProps, IState> {
             <div className={'logo-img'}>
               <img src={axuiLogo} />
             </div>
-            <h1>axui-contextmenu</h1>
+            <h1>react-electron-window-menu</h1>
+
             <div>
-              <GitHubButton
-                type="stargazers"
-                namespace="jsdevkr"
-                repo="axui-contextmenu"
-              />{' '}
-              <GitHubButton
-                type="forks"
-                namespace="jsdevkr"
-                repo="axui-contextmenu"
-              />
+              {window.location.host !== 'localhost:3000' && (
+                <>
+                  <GitHubButton
+                    type="stargazers"
+                    namespace="jsdevkr"
+                    repo="axui-contextmenu"
+                  />{' '}
+                  <GitHubButton
+                    type="forks"
+                    namespace="jsdevkr"
+                    repo="axui-contextmenu"
+                  />
+                </>
+              )}
               <img src="https://badge.fury.io/js/axui-contextmenu.svg" />{' '}
               <img src="https://img.shields.io/npm/dm/axui-contextmenu.svg" />{' '}
             </div>
@@ -85,18 +93,39 @@ class Index extends React.Component<IProps, IState> {
         <StyledContainer>
           <h2>Installation</h2>
 
-          <CodeViewer>$ npm install axui-contextmenu</CodeViewer>
+          <CodeViewer>$ npm install react-electron-window-menu</CodeViewer>
 
           <CodeViewer
             code={`
-import 'axui-contextmenu/style.css';
-import ContextMenu, { IAXUIContextMenuProps } from 'axui-contextmenu';
+import 'react-electron-window-menu/style.css';
+import { ContextMenu, MenuBar } from 'react-electron-window-menu';
 `}
           />
 
-          <h2>basic</h2>
-          <BasicExample />
           <Divider />
+
+          <h2>Menubar</h2>
+          <MenuBarExample />
+
+          <br />
+          <p>
+            <Checkbox
+              onChange={e => {
+                this.setState({
+                  viewMenuBarRaw: e.target.checked,
+                });
+              }}
+            >
+              View Source
+            </Checkbox>
+          </p>
+          {viewMenuBarRaw ? <CodeViewer code={menuBarRaw} /> : null}
+
+          <Divider />
+
+          <h2>ContextMenu</h2>
+          <ContextMenuExample />
+          <br />
           <p>
             <Checkbox
               onChange={e => {
@@ -108,7 +137,7 @@ import ContextMenu, { IAXUIContextMenuProps } from 'axui-contextmenu';
               View Source
             </Checkbox>
           </p>
-          {viewBasicRaw ? <CodeViewer code={basicRaw} /> : null}
+          {viewBasicRaw ? <CodeViewer code={contextMenuRaw} /> : null}
         </StyledContainer>
       </Component>
     );

@@ -1,39 +1,17 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import PopupMenu from './PopupMenu';
-import { IAXUIContextMenuItem } from './MenuItem';
+import { IREWMenu } from './common/@types';
+import { PopupMenu } from './components';
 
-export interface IAXUIContextMenuOptions {
-  id?: string;
-  style?: React.CSSProperties;
-}
-
-export interface IAXUIContextMenuPopupOption {
-  x?: number;
-  y?: number;
-  callback?: () => void;
-}
-
-export interface IAXUIContextMenu {
-  popup: (popupOption?: IAXUIContextMenuPopupOption) => void;
-  setMenu: (menuItems: IAXUIContextMenuItem[]) => IAXUIContextMenu;
-}
-
-export type IAXUIContextMenuOnClickItem = (
-  menuItem: IAXUIContextMenuItem,
-  browserWindow: Window,
-  event: React.MouseEvent<HTMLDivElement>,
-) => void;
-
-class AXUIContextMenu implements IAXUIContextMenu {
+class ContextMenu implements IREWMenu.IContextMenu {
   container: HTMLDivElement;
-  options: IAXUIContextMenuOptions = {
+  options: IREWMenu.IContextMenuOptions = {
     id: '',
   };
-  menuItems: IAXUIContextMenuItem[] = [];
+  menuItems: IREWMenu.IMenuItem[] = [];
   _visible: boolean = false;
 
-  constructor(options: IAXUIContextMenuOptions = {}) {
+  constructor(options: IREWMenu.IContextMenuOptions = {}) {
     this.options = options;
   }
 
@@ -49,18 +27,18 @@ class AXUIContextMenu implements IAXUIContextMenu {
     this.render();
   }
 
-  setMenu(menuItems: IAXUIContextMenuItem[]) {
+  setMenu(menuItems: IREWMenu.IMenuItem[]) {
     this.menuItems = [...menuItems];
     this.render();
     return this;
   }
 
-  popup(popupOption: IAXUIContextMenuPopupOption) {
+  popup(popupOption: IREWMenu.IPopupOption) {
     const { x: containerLeft = 0, y: containerTop = 0 } = popupOption;
     const { id = '' } = this.options;
 
     const existContainer = document.querySelectorAll(
-      `[data-axui-contextmenu-container="${id}"]`,
+      `[data-rewm-contextmenu-container="${id}"]`,
     )[0];
 
     if (existContainer && id !== '') {
@@ -68,7 +46,7 @@ class AXUIContextMenu implements IAXUIContextMenu {
       document.body.appendChild(this.container);
     } else {
       this.container = document.createElement('div');
-      this.container.setAttribute('data-axui-contextmenu-container', id);
+      this.container.setAttribute('data-rewm-contextmenu-container', id);
       document.body.appendChild(this.container);
     }
 
@@ -82,7 +60,11 @@ class AXUIContextMenu implements IAXUIContextMenu {
     }
   }
 
-  onClickItem: IAXUIContextMenuOnClickItem = (menuItem, w, e) => {
+  close() {
+    this.visible = false;
+  }
+
+  onClickItem: IREWMenu.OnClickItem = (menuItem, w, e) => {
     const { type = 'normal', enabled = true, visible = true } = menuItem;
 
     if (enabled) {
@@ -138,4 +120,4 @@ class AXUIContextMenu implements IAXUIContextMenu {
   }
 }
 
-export default AXUIContextMenu;
+export default ContextMenu;

@@ -1,38 +1,13 @@
 import * as React from 'react';
-import { IAXUIContextMenuOnClickItem } from './AXUIContextMenu';
-import { IAXUIContextMenuOnHoverItem } from './PopupMenu';
 import CheckboxIcon from './CheckboxIcon';
 import SubmenuIcon from './SubmenuIcon';
 import Submenu from './Submenu';
+import { IREWMenu } from '../common/@types';
 
-export interface IAXUIContextMenuItem {
-  label?: string;
-  sublabel?: string;
-  type?: 'normal' | 'separator' | 'checkbox';
-  icon?: string | React.ReactElement<any>;
-  checked?: boolean;
-  submenu?: IAXUIContextMenuItem[];
-  click?: (
-    menuItem: IAXUIContextMenuItem,
-    browserWindow: Window,
-    event: React.MouseEvent<HTMLDivElement>,
-  ) => void;
-  opened?: boolean;
-  enabled?: boolean;
-  visible?: boolean;
-  accelerator?: string;
-}
-
-interface IMenuItem {
-  item: IAXUIContextMenuItem;
-  onClickItem: IAXUIContextMenuOnClickItem;
-  onHoverItem: IAXUIContextMenuOnHoverItem;
-}
-
-class MenuItem extends React.Component<IMenuItem> {
+class MenuItem extends React.Component<IREWMenu.IMenuItemProps> {
   itemRef: React.RefObject<HTMLDivElement>;
 
-  constructor(props: IMenuItem) {
+  constructor(props: IREWMenu.IMenuItemProps) {
     super(props);
     this.itemRef = React.createRef();
   }
