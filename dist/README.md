@@ -11,7 +11,7 @@ $ npm i react-electron-window-menu
 
 ```js
 import * as React from 'react';
-import {ContextMenu} from 'react-electron-window-menu';
+import ContextMenu from 'react-electron-window-menu';
 import 'react-electron-window-menu/style.css';
 
 class BasicExample extends React.Component {
