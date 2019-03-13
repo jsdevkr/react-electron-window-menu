@@ -1,18 +1,18 @@
-[![npm version](https://badge.fury.io/js/axui-contextmenu.svg)](https://badge.fury.io/js/axui-contextmenu)
-[![](https://img.shields.io/npm/dm/axui-contextmenu.svg)](https://www.npmjs.com/package/axui-contextmenu)
+[![npm version](https://badge.fury.io/js/react-electron-window-menu.svg)](https://badge.fury.io/js/react-electron-window-menu)
+[![](https://img.shields.io/npm/dm/react-electron-window-menu.svg)](https://www.npmjs.com/package/react-electron-window-menu)
 
-# axui-contextmenu
+# react-electron-window-menu
 
 ## Install
 
 ```
-$ npm i axui-contextmenu
+$ npm i react-electron-window-menu
 ```
 
 ```js
 import * as React from 'react';
-import ContextMenu from 'axui-contextmenu';
-import 'axui-contextmenu/style.css';
+import {ContextMenu} from 'react-electron-window-menu';
+import 'react-electron-window-menu/style.css';
 
 class BasicExample extends React.Component {
   state = {};

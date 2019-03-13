@@ -8,5 +8,5 @@
     "declaration": true,
     "sourceMap": false
   },
-  "include": ["src/axui-contextmenu/**/*"]
+  "include": ["src/react-electron-window-menu/**/*"]
 }

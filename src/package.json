@@ -1,12 +1,12 @@
 {
-  "name": "axui-contextmenu",
+  "name": "react-electron-window-menu",
   "version": "0.4.0",
   "description": ":octocat: A simple react contextmenu component",
   "jsnext:main": "es6/index.js",
   "module": "es6/index.js",
   "main": "commonjs/index.js",
-  "repository": "https://github.com/jsdevkr/axui-contextmenu",
-  "website": "http://axui-contextmenu.jsdev.kr",
+  "repository": "https://github.com/jsdevkr/react-electron-window-menu",
+  "website": "http://react-electron-window-menu.jsdev.kr",
   "author": "tom@axisj.com",
   "license": "MIT",
   "keywords": [

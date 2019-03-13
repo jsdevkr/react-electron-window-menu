@@ -1,0 +1,32 @@
+/* This style designed like OSX */
+
+$rewm-contextmenu-bg-color: #f3f3f3;
+$rewm-contextmenu-border-width: 0.5px;
+$rewm-contextmenu-border-style: solid;
+$rewm-contextmenu-border-color: rgba(0, 0, 0, 0.2);
+$rewm-contextmenu-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+$rewm-contextmenu-border-radius: 6px;
+$rewm-contextmenu-padding-size: 4px;
+$rewm-contextmenu-min-width: 130px;
+
+/* contenxtmenu-item */
+$rewm-contextmenu-item-font-size: 14px;
+$rewm-contextmenu-item-font-color: #434343;
+$rewm-contextmenu-item-font-weight: 400;
+
+$rewm-contextmenu-item-padding: 3px 4px;
+$rewm-contextmenu-item-line-height: 14px;
+$rewm-contextmenu-item-checkbox-width: 14px;
+
+/* menubar */
+$rewm-menubar-item-font-color: #434343;
+$rewm-menubar-item-font-weight: 400;
+$rewm-menubar-item-padding: 0 10px;
+
+/* item on hover */
+$rewm-menu-item-hover-bg-color: #0057d9;
+$rewm-menu-item-hover-font-color: #fff;
+
+$rewm-menu-separator-height: 2px;
+$rewm-menu-separator-color: #e5e5e5;
+$rewm-menu-separator-margin: 5px 0;

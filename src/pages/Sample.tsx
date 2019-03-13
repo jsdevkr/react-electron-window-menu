@@ -75,17 +75,17 @@ class Index extends React.Component<IProps, IState> {
                   <GitHubButton
                     type="stargazers"
                     namespace="jsdevkr"
-                    repo="axui-contextmenu"
+                    repo="react-electron-window-menu"
                   />{' '}
                   <GitHubButton
                     type="forks"
                     namespace="jsdevkr"
-                    repo="axui-contextmenu"
+                    repo="react-electron-window-menu"
                   />
                 </>
               )}
-              <img src="https://badge.fury.io/js/axui-contextmenu.svg" />{' '}
-              <img src="https://img.shields.io/npm/dm/axui-contextmenu.svg" />{' '}
+              <img src="https://badge.fury.io/js/react-electron-window-menu.svg" />{' '}
+              <img src="https://img.shields.io/npm/dm/react-electron-window-menu.svg" />{' '}
             </div>
           </StyledContainer>
         </header>
