@@ -8,7 +8,7 @@
   "scripts": {
     "start": "react-app-rewired start --scripts-version react-scripts-ts",
     "build": "better-npm-run build:common && better-npm-run build:es5 && better-npm-run build:es6",
-    "docs": "react-app-rewired build --scripts-version react-scripts-ts && rimraf ./docs && mv build ./docs && cp ./src/CNAME ./docs/CNAME && cp ./src/404.html ./docs/404.html  && git add -A",
+    "docs": "react-app-rewired build --scripts-version react-scripts-ts && rimraf ./docs && mv build ./docs && ncp ./src/CNAME ./docs/CNAME && ncp ./src/404.html ./docs/404.html  && git add -A",
     "test": "cross-env NODE_ENV=test jest",
     "test-watch": "cross-env NODE_ENV=test jest --watch",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
@@ -17,7 +17,7 @@
     "pub:minor": "cd dist && npm version minor && cd .. && node ./scripts/syncVersion.js && npm run docs"
   },
   "betterScripts": {
-    "build:common": "node-sass ./src/react-electron-window-menu/style.scss dist/style.css --output-style compressed && rimraf ./dist/scss && cp ./src/react-electron-window-menu/style.scss ./dist/style.scss && cp -R ./src/react-electron-window-menu/scss ./dist/scss && cp ./README.md ./dist/README.md",
+    "build:common": "node-sass ./src/react-electron-window-menu/style.scss dist/style.css --output-style compressed && rimraf ./dist/scss && ncp ./src/react-electron-window-menu/style.scss ./dist/style.scss && ncp -R ./src/react-electron-window-menu/scss ./dist/scss && ncp ./README.md ./dist/README.md",
     "build:es5": "rimraf ./dist/commonjs && tsc --p tsconfig.es5.json",
     "build:es6": "rimraf ./dist/es6 && tsc --p tsconfig.es6.json"
   },
@@ -49,6 +49,7 @@
     "jsonfile": "^5.0.0",
     "less": "^3.5.3",
     "less-loader": "^4.1.0",
+    "ncp": "^2.0.0",
     "node-sass": "^4.8.3",
     "raw-loader": "^0.5.1",
     "react": "^16.4.0",
