@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { ContextMenu, IREWMenu } from 'react-electron-window-menu';
 import 'react-electron-window-menu/style.scss';
 import { styled } from 'styledComponents';

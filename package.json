@@ -24,10 +24,6 @@
   "keywords": [],
   "author": "tom@axisj.com",
   "license": "MIT",
-  "peerDependencies": {
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3"
-  },
   "devDependencies": {
     "@types/jest": "^23.3.1",
     "@types/node": "^10.9.4",
