@@ -4,6 +4,42 @@ import SubmenuIcon from './SubmenuIcon';
 import Submenu from './Submenu';
 import { IREWMenu } from '../common/@types';
 
+const is = {
+  macos: process.platform === 'darwin',
+  linux: process.platform === 'linux',
+  windows: process.platform === 'win32',
+};
+
+export function KeymapDisplay(key?: string) {
+  if (!key) {
+    return '';
+  }
+
+  const chars = {
+    Command: '⌘',
+    Cmd: '⌘',
+    Control: '⌃',
+    Ctrl: '⌃',
+    CommandOrControl: is.macos ? '⌘' : '⌃',
+    CmdOrCtrl: is.macos ? '⌘' : '⌃',
+    Alt: '⌥',
+    Option: '⌥',
+    Shift: '⇧',
+    Return: '↵',
+  };
+
+  return key
+    .split(/\+/g)
+    .map(s => {
+      if (typeof chars[s] === 'undefined') {
+        return s;
+      } else {
+        return chars[s];
+      }
+    })
+    .join(' + ');
+}
+
 class MenuItem extends React.Component<IREWMenu.IMenuItemProps> {
   itemRef: React.RefObject<HTMLDivElement>;
 
@@ -76,7 +112,7 @@ class MenuItem extends React.Component<IREWMenu.IMenuItemProps> {
                 )}
               </>
             ) : (
-              <div data-accelerator>{item.accelerator}</div>
+              <div data-accelerator>{KeymapDisplay(item.accelerator)}</div>
             )}
           </div>
         );

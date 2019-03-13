@@ -28,6 +28,40 @@ var React = require("react");
 var CheckboxIcon_1 = require("./CheckboxIcon");
 var SubmenuIcon_1 = require("./SubmenuIcon");
 var Submenu_1 = require("./Submenu");
+var is = {
+    macos: process.platform === 'darwin',
+    linux: process.platform === 'linux',
+    windows: process.platform === 'win32',
+};
+function KeymapDisplay(key) {
+    if (!key) {
+        return '';
+    }
+    var chars = {
+        Command: '⌘',
+        Cmd: '⌘',
+        Control: '⌃',
+        Ctrl: '⌃',
+        CommandOrControl: is.macos ? '⌘' : '⌃',
+        CmdOrCtrl: is.macos ? '⌘' : '⌃',
+        Alt: '⌥',
+        Option: '⌥',
+        Shift: '⇧',
+        Return: '↵',
+    };
+    return key
+        .split(/\+/g)
+        .map(function (s) {
+        if (typeof chars[s] === 'undefined') {
+            return s;
+        }
+        else {
+            return chars[s];
+        }
+    })
+        .join(' + ');
+}
+exports.KeymapDisplay = KeymapDisplay;
 var MenuItem = /** @class */ (function (_super) {
     __extends(MenuItem, _super);
     function MenuItem(props) {
@@ -67,7 +101,7 @@ var MenuItem = /** @class */ (function (_super) {
                         item.label),
                     item.submenu ? (React.createElement(React.Fragment, null,
                         React.createElement(SubmenuIcon_1.default, null),
-                        item.opened && (React.createElement(Submenu_1.default, { submenu: item.submenu, onClickItem: onClickItem, itemRef: this.itemRef })))) : (React.createElement("div", { "data-accelerator": true }, item.accelerator))));
+                        item.opened && (React.createElement(Submenu_1.default, { submenu: item.submenu, onClickItem: onClickItem, itemRef: this.itemRef })))) : (React.createElement("div", { "data-accelerator": true }, KeymapDisplay(item.accelerator)))));
             case 'separator':
                 itemProps['data-ctx-separator'] = true;
                 return React.createElement("div", __assign({}, itemProps));
