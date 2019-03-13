@@ -1,7 +1,7 @@
 {
   "name": "react-electron-window-menu",
-  "version": "0.4.0",
-  "description": ":octocat: A simple react contextmenu component",
+  "version": "0.5.1",
+  "description": ":octocat: React Component that render a menu with 'Electron Menu' in the Windows environment.",
   "jsnext:main": "es6/index.js",
   "module": "es6/index.js",
   "main": "commonjs/index.js",
@@ -10,7 +10,7 @@
   "author": "tom@axisj.com",
   "license": "MIT",
   "keywords": [
-    "contextmenu, react-contextmenu, react-component, typescript"
+    "contextmenu, react-contextmenu, react-component, typescript, electron, menu, react, windows"
   ],
   "peerDependencies": {
     "react": "^16.4.0"

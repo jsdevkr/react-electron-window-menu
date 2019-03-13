@@ -70,3 +70,4 @@ class BasicExample extends React.Component {
 - v0.3.0 : Add properties "check, enable, visible" on MenuItem
 - v0.3.1 : update readme
 - v0.4.0 : Add property "accelerator" on MenuItem
+- v0.5.1 : Rename to react-electron-window-menu

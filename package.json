@@ -1,6 +1,6 @@
 {
   "name": "react-electron-window-menu",
-  "version": "0.4.0",
+  "version": "0.5.1",
   "description": ":octocat: React Component that render a menu with 'Electron Menu' in the Windows environment.",
   "main": "index.js",
   "scripts": {
