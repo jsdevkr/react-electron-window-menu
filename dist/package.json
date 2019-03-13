@@ -13,7 +13,8 @@
     "contextmenu, react-contextmenu, react-component, typescript, electron, menu, react, windows"
   ],
   "peerDependencies": {
-    "react": "^16.4.0"
+    "react": "^16.4.0",
+    "react-dom": "^16.6.3"
   },
   "scripts": {}
 }
