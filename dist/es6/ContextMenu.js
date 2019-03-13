@@ -48,7 +48,9 @@ class ContextMenu {
     }
     set visible(tf) {
         this._visible = tf;
-        this.menuItems.forEach(n => {
+        this.menuItems
+            .filter(n => n)
+            .forEach(n => {
             n.opened = false;
         });
         this.render();

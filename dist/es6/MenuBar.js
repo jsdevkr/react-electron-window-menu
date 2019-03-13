@@ -38,8 +38,10 @@ class MenuBar extends React.Component {
             this.handleSubmenuPopup(e, menuIndex);
         };
         this.handleSubmenuPopup = (e, menuIndex) => {
+            const { items = [] } = this.props;
+            const item = items[menuIndex];
             const submenu = this.childMenu[menuIndex];
-            if (!submenu) {
+            if (!submenu || !item) {
                 return;
             }
             if (!e.currentTarget) {
@@ -55,9 +57,29 @@ class MenuBar extends React.Component {
                 this.childMenu[openedMenuIndex] &&
                     this.childMenu[openedMenuIndex].close();
             }
+            // submenu.setMenu(item.submenu || []);
             submenu.popup({ x: left + pageXOffset, y: top + height + pageYOffset });
             this.setState({
                 openedMenuIndex: menuIndex,
+            });
+        };
+        this.initSubmenu = () => {
+            const { items = [], submenu: { style: _submenuStyle = {}, placement = 'bottom' } = {}, } = this.props;
+            const submenuStyle = Object.assign({}, _submenuStyle);
+            if (placement === 'bottom') {
+                submenuStyle.borderTopLeftRadius = 0;
+                submenuStyle.borderTopRightRadius = 0;
+                submenuStyle.marginTop = 0;
+            }
+            this.childMenu = [];
+            items.forEach((menu, i) => {
+                const submenu = new ContextMenu_1.default({
+                    id: `menu-${i}`,
+                    style: submenuStyle,
+                    placement,
+                });
+                submenu.setMenu(menu.submenu || []);
+                this.childMenu.push(submenu);
             });
         };
         this.childMenu = [];
@@ -68,24 +90,13 @@ class MenuBar extends React.Component {
         };
     }
     componentDidMount() {
-        const { items = [], submenu: { style: _submenuStyle = {}, placement = 'bottom' } = {}, } = this.props;
-        const submenuStyle = Object.assign({}, _submenuStyle);
-        if (placement === 'bottom') {
-            submenuStyle.borderTopLeftRadius = 0;
-            submenuStyle.borderTopRightRadius = 0;
-            submenuStyle.marginTop = '0.5px';
-        }
-        items.forEach((menu, i) => {
-            const submenu = new ContextMenu_1.default({
-                id: `menu-${i}`,
-                style: submenuStyle,
-                placement,
-            });
-            submenu.setMenu(menu.submenu || []);
-            this.childMenu.push(submenu);
-        });
+        this.initSubmenu();
     }
-    componentWillUnmount() { }
+    componentDidUpdate(prevProps) {
+        if (prevProps.items !== this.props.items) {
+            this.initSubmenu();
+        }
+    }
     render() {
         const { active, openedMenuIndex } = this.state;
         const { items = [], style } = this.props;

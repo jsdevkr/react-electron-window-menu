@@ -82,7 +82,9 @@ var ContextMenu = /** @class */ (function () {
         },
         set: function (tf) {
             this._visible = tf;
-            this.menuItems.forEach(function (n) {
+            this.menuItems
+                .filter(function (n) { return n; })
+                .forEach(function (n) {
                 n.opened = false;
             });
             this.render();

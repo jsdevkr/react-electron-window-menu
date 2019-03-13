@@ -14,8 +14,9 @@ declare class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
     handleMenuClick: (e: React.MouseEvent<Element, MouseEvent>, menuIndex: number) => void;
     handleMenuOver: (e: React.MouseEvent<Element, MouseEvent>, menuIndex: number) => void;
     handleSubmenuPopup: (e: React.MouseEvent<Element, MouseEvent>, menuIndex: number) => void;
+    initSubmenu: () => void;
     componentDidMount(): void;
-    componentWillUnmount(): void;
+    componentDidUpdate(prevProps: IREWMenu.IMenuBarProps): void;
     render(): JSX.Element;
 }
 export default MenuBar;

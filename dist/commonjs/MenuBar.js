@@ -63,8 +63,10 @@ var MenuBar = /** @class */ (function (_super) {
             _this.handleSubmenuPopup(e, menuIndex);
         };
         _this.handleSubmenuPopup = function (e, menuIndex) {
+            var _a = _this.props.items, items = _a === void 0 ? [] : _a;
+            var item = items[menuIndex];
             var submenu = _this.childMenu[menuIndex];
-            if (!submenu) {
+            if (!submenu || !item) {
                 return;
             }
             if (!e.currentTarget) {
@@ -73,16 +75,36 @@ var MenuBar = /** @class */ (function (_super) {
             if (!_this.containerRef.current) {
                 return;
             }
-            var _a = _this.state.openedMenuIndex, openedMenuIndex = _a === void 0 ? -1 : _a;
+            var _b = _this.state.openedMenuIndex, openedMenuIndex = _b === void 0 ? -1 : _b;
             var pageXOffset = window.pageXOffset, pageYOffset = window.pageYOffset;
-            var _b = e.currentTarget.getBoundingClientRect(), left = _b.left, top = _b.top, height = _b.height;
+            var _c = e.currentTarget.getBoundingClientRect(), left = _c.left, top = _c.top, height = _c.height;
             if (openedMenuIndex !== menuIndex) {
                 _this.childMenu[openedMenuIndex] &&
                     _this.childMenu[openedMenuIndex].close();
             }
+            // submenu.setMenu(item.submenu || []);
             submenu.popup({ x: left + pageXOffset, y: top + height + pageYOffset });
             _this.setState({
                 openedMenuIndex: menuIndex,
+            });
+        };
+        _this.initSubmenu = function () {
+            var _a = _this.props, _b = _a.items, items = _b === void 0 ? [] : _b, _c = _a.submenu, _d = _c === void 0 ? {} : _c, _e = _d.style, _submenuStyle = _e === void 0 ? {} : _e, _f = _d.placement, placement = _f === void 0 ? 'bottom' : _f;
+            var submenuStyle = __assign({}, _submenuStyle);
+            if (placement === 'bottom') {
+                submenuStyle.borderTopLeftRadius = 0;
+                submenuStyle.borderTopRightRadius = 0;
+                submenuStyle.marginTop = 0;
+            }
+            _this.childMenu = [];
+            items.forEach(function (menu, i) {
+                var submenu = new ContextMenu_1.default({
+                    id: "menu-" + i,
+                    style: submenuStyle,
+                    placement: placement,
+                });
+                submenu.setMenu(menu.submenu || []);
+                _this.childMenu.push(submenu);
             });
         };
         _this.childMenu = [];
@@ -94,25 +116,13 @@ var MenuBar = /** @class */ (function (_super) {
         return _this;
     }
     MenuBar.prototype.componentDidMount = function () {
-        var _this = this;
-        var _a = this.props, _b = _a.items, items = _b === void 0 ? [] : _b, _c = _a.submenu, _d = _c === void 0 ? {} : _c, _e = _d.style, _submenuStyle = _e === void 0 ? {} : _e, _f = _d.placement, placement = _f === void 0 ? 'bottom' : _f;
-        var submenuStyle = __assign({}, _submenuStyle);
-        if (placement === 'bottom') {
-            submenuStyle.borderTopLeftRadius = 0;
-            submenuStyle.borderTopRightRadius = 0;
-            submenuStyle.marginTop = '0.5px';
-        }
-        items.forEach(function (menu, i) {
-            var submenu = new ContextMenu_1.default({
-                id: "menu-" + i,
-                style: submenuStyle,
-                placement: placement,
-            });
-            submenu.setMenu(menu.submenu || []);
-            _this.childMenu.push(submenu);
-        });
+        this.initSubmenu();
     };
-    MenuBar.prototype.componentWillUnmount = function () { };
+    MenuBar.prototype.componentDidUpdate = function (prevProps) {
+        if (prevProps.items !== this.props.items) {
+            this.initSubmenu();
+        }
+    };
     MenuBar.prototype.render = function () {
         var _this = this;
         var _a = this.state, active = _a.active, openedMenuIndex = _a.openedMenuIndex;

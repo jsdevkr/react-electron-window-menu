@@ -61,8 +61,10 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
   };
 
   handleSubmenuPopup = (e: React.MouseEvent, menuIndex: number) => {
+    const { items = [] } = this.props;
+    const item = items[menuIndex];
     const submenu = this.childMenu[menuIndex];
-    if (!submenu) {
+    if (!submenu || !item) {
       return;
     }
     if (!e.currentTarget) {
@@ -80,6 +82,7 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
       this.childMenu[openedMenuIndex] &&
         this.childMenu[openedMenuIndex].close();
     }
+    // submenu.setMenu(item.submenu || []);
     submenu.popup({ x: left + pageXOffset, y: top + height + pageYOffset });
 
     this.setState({
@@ -87,7 +90,7 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
     });
   };
 
-  componentDidMount() {
+  initSubmenu = () => {
     const {
       items = [],
       submenu: { style: _submenuStyle = {}, placement = 'bottom' } = {},
@@ -100,9 +103,10 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
     if (placement === 'bottom') {
       submenuStyle.borderTopLeftRadius = 0;
       submenuStyle.borderTopRightRadius = 0;
-      submenuStyle.marginTop = '0.5px';
+      submenuStyle.marginTop = 0;
     }
 
+    this.childMenu = [];
     items.forEach((menu, i) => {
       const submenu = new ContextMenu({
         id: `menu-${i}`,
@@ -112,9 +116,17 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
       submenu.setMenu(menu.submenu || []);
       this.childMenu.push(submenu);
     });
+  };
+
+  componentDidMount() {
+    this.initSubmenu();
   }
 
-  componentWillUnmount() {}
+  componentDidUpdate(prevProps: IREWMenu.IMenuBarProps) {
+    if (prevProps.items !== this.props.items) {
+      this.initSubmenu();
+    }
+  }
 
   render() {
     const { active, openedMenuIndex } = this.state;

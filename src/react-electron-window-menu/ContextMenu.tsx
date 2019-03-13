@@ -30,9 +30,13 @@ class ContextMenu implements IREWMenu.IContextMenu {
 
   set visible(tf: boolean) {
     this._visible = tf;
-    this.menuItems.forEach(n => {
-      n.opened = false;
-    });
+
+    this.menuItems
+      .filter(n => n)
+      .forEach(n => {
+        n.opened = false;
+      });
+
     this.render();
   }
 
