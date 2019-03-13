@@ -14,13 +14,16 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
+    "skipLibCheck": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "experimentalDecorators": true,
     "downlevelIteration": true,
-    "plugins": [{ "name": "typescript-styled-plugin" }]
+    "plugins": [{
+      "name": "typescript-styled-plugin"
+    }]
   },
   "exclude": [
     "node_modules",
