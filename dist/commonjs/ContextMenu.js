@@ -32,8 +32,17 @@ var __spread = (this && this.__spread) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var ReactDOM = require("react-dom");
 var components_1 = require("./components");
+var ReactDOM = (function () {
+    try {
+        var ReactDom = require('@hot-loader/react-dom');
+        if (ReactDom) {
+            return ReactDom;
+        }
+    }
+    catch (error) { }
+    return require('react-dom');
+})();
 var ContextMenu = /** @class */ (function () {
     function ContextMenu(options) {
         if (options === void 0) { options = {}; }
