@@ -40,14 +40,14 @@ function KeymapDisplay(key) {
     var chars = {
         Command: '⌘',
         Cmd: '⌘',
-        Control: '⌃',
-        Ctrl: '⌃',
-        CommandOrControl: is.macos ? '⌘' : '⌃',
-        CmdOrCtrl: is.macos ? '⌘' : '⌃',
-        Alt: '⌥',
+        Control: 'Ctrl',
+        Ctrl: 'Ctrl',
+        CommandOrControl: is.macos ? '⌘' : 'Ctrl',
+        CmdOrCtrl: is.macos ? '⌘' : 'Ctrl',
+        Alt: is.macos ? '⌥' : 'Alt',
         Option: '⌥',
-        Shift: '⇧',
-        Return: '↵',
+        Shift: is.macos ? '⇧' : 'Shift',
+        Return: is.macos ? '↵' : 'Enter',
     };
     return key
         .split(/\+/g)
