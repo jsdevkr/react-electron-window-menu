@@ -3,7 +3,8 @@
   box-sizing: border-box;
 
   background: $rewm-contextmenu-bg-color;
-  border: $rewm-contextmenu-border-width $rewm-contextmenu-border-style $rewm-contextmenu-border-color;
+  border: $rewm-contextmenu-border-width $rewm-contextmenu-border-style
+    $rewm-contextmenu-border-color;
   box-shadow: $rewm-contextmenu-box-shadow;
   border-radius: $rewm-contextmenu-border-radius;
   padding: $rewm-contextmenu-padding-size 0;
@@ -95,12 +96,16 @@
     padding: $rewm-menubar-item-padding;
     color: $rewm-menubar-item-font-color;
     font-weight: $rewm-menubar-item-font-weight;
+
+    &:hover {
+      background-color: $rewm-menu-item-hover-bg-color;
+      color: $rewm-menu-item-hover-font-color;
+    }
   }
 }
 
 .rewm-menubar-active {
   [data-menubar-item] {
-
     &:hover,
     &.active {
       background-color: $rewm-menu-item-hover-bg-color;
