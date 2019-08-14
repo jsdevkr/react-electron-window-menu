@@ -17,7 +17,7 @@ interface IKeyDownAttr {
 class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
   childMenu: IREWMenu.IContextMenu[];
   containerRef: React.RefObject<HTMLDivElement>;
-  keydownAttr: IKeyDownAttr;
+  keydownInfo: string;
 
   constructor(props: IREWMenu.IMenuBarProps) {
     super(props);
@@ -30,8 +30,8 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
     };
   }
 
-  onMousedownBody = (e: MouseEvent) => {
-    var el = e.target;
+  onMousedownBody = (ev: MouseEvent) => {
+    var el = ev.target;
     if (this.containerRef.current) {
       if (el && el instanceof Node && !this.containerRef.current.contains(el)) {
         this.setState({ active: false, openedMenuIndex: -1 });
@@ -41,22 +41,16 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
     }
   };
 
-  onKeyDownWindow = (e: KeyboardEvent) => {
-    const { altKey, shiftKey, ctrlKey, metaKey, which } = e;
-    this.keydownAttr = {
-      altKey,
-      shiftKey,
-      ctrlKey,
-      metaKey,
-      which,
-    };
-
-    if (which === 27) {
-      // this.visible = false;
-    }
+  onKeyDownWindow = (ev: KeyboardEvent) => {
+    const { altKey, shiftKey, ctrlKey, metaKey, which } = ev;
+    this.keydownInfo = [shiftKey, ctrlKey, metaKey, which].join('-');
   };
 
-  onKeyUpWindow = (e: KeyboardEvent) => {};
+  onKeyUpWindow = (ev: KeyboardEvent) => {
+    const { altKey, shiftKey, ctrlKey, metaKey, which } = ev;
+    const keyupInfo = [shiftKey, ctrlKey, metaKey, which].join('-');
+    console.log(this.keydownInfo, keyupInfo, this.keydownInfo === keyupInfo);
+  };
 
   handleMenuBarActive = () => {
     this.setState({
