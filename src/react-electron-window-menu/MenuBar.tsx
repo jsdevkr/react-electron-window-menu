@@ -6,10 +6,18 @@ interface IState {
   active: boolean;
   openedMenuIndex: number;
 }
+interface IKeyDownAttr {
+  altKey: boolean;
+  shiftKey: boolean;
+  ctrlKey: boolean;
+  metaKey: boolean;
+  which: number;
+}
 
 class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
   childMenu: IREWMenu.IContextMenu[];
   containerRef: React.RefObject<HTMLDivElement>;
+  keydownAttr: IKeyDownAttr;
 
   constructor(props: IREWMenu.IMenuBarProps) {
     super(props);
@@ -34,10 +42,21 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
   };
 
   onKeyDownWindow = (e: KeyboardEvent) => {
-    if (e.which === 27) {
+    const { altKey, shiftKey, ctrlKey, metaKey, which } = e;
+    this.keydownAttr = {
+      altKey,
+      shiftKey,
+      ctrlKey,
+      metaKey,
+      which,
+    };
+
+    if (which === 27) {
       // this.visible = false;
     }
   };
+
+  onKeyUpWindow = (e: KeyboardEvent) => {};
 
   handleMenuBarActive = () => {
     this.setState({
@@ -45,7 +64,6 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
     });
 
     document.body.addEventListener('mousedown', this.onMousedownBody);
-    window.addEventListener('keydown', this.onKeyDownWindow);
   };
 
   handleMenuClick = (e: React.MouseEvent, menuIndex: number) => {
@@ -120,12 +138,20 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
 
   componentDidMount() {
     this.initSubmenu();
+
+    window.addEventListener('keydown', this.onKeyDownWindow, false);
+    window.addEventListener('keyup', this.onKeyUpWindow, false);
   }
 
   componentDidUpdate(prevProps: IREWMenu.IMenuBarProps) {
     if (prevProps.items !== this.props.items) {
       this.initSubmenu();
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.onKeyDownWindow);
+    window.removeEventListener('keyup', this.onKeyUpWindow);
   }
 
   render() {
