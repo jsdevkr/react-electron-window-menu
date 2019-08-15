@@ -80,5 +80,6 @@ export namespace IREWMenu {
     items?: IMenuItem[];
     style?: React.CSSProperties;
     submenu?: IMenuBarSubmenu;
+    enableAltKeyAction?: boolean;
   }
 }

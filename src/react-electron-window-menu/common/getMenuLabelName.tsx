@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-function getMenuLabelName(label?: string, activeAlt?: boolean) {
-  if (activeAlt) {
+function getMenuLabelName(label?: string, altKeyPressed?: boolean) {
+  if (altKeyPressed) {
     return (
       <span
         dangerouslySetInnerHTML={{

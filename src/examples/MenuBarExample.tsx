@@ -38,6 +38,7 @@ class MenuBarExample extends React.Component<IProps, IState> {
       <Container>
         <div className="menubar-container">
           <MenuBar
+            enableAltKeyAction={true}
             style={{ height: '25px' }}
             submenu={{
               style: { minWidth: '150px' },
@@ -45,42 +46,42 @@ class MenuBarExample extends React.Component<IProps, IState> {
             }}
             items={[
               {
-                label: 'File',
+                label: '&File',
                 submenu: [
                   {
-                    label: 'Back (enabled: false)',
+                    label: '&Back (enabled: false)',
                     icon: <Icon type="arrow-left" />,
                     click: this.onClickMenu,
                     enabled: false,
                   },
                   {
-                    label: 'Forward',
+                    label: '&Forward',
                     icon: <Icon type="arrow-right" />,
                     click: this.onClickMenu,
                     accelerator: 'Cmd+F',
                   },
                   {
-                    label: 'Reload',
+                    label: '&Reload',
                     icon: <Icon type="caret-right" />,
                     click: this.onClickMenu,
                   },
                   { type: 'separator' },
                   { label: 'Save as', click: this.onClickMenu, visible: false },
                   {
-                    label: 'Print (enabled: false)',
+                    label: '&Print (enabled: false)',
                     click: this.onClickMenu,
                     enabled: false,
                   },
                   {
                     type: 'checkbox',
-                    label: 'Action option 1',
+                    label: 'Action option &1',
                     click: (menuItem, w, e) => {
                       console.log(menuItem);
                     },
                   },
                   {
                     type: 'checkbox',
-                    label: 'Action option 2 (enabled: false)',
+                    label: 'Action option &2 (enabled: false)',
                     checked: true,
                     enabled: false,
                     click: (menuItem, w, e) => {

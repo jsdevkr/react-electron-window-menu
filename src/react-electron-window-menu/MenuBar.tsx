@@ -1,17 +1,12 @@
 import * as React from 'react';
 import { IREWMenu } from './common/@types';
 import ContextMenu from './ContextMenu';
+import getMenuLabelName from './common/getMenuLabelName';
 
 interface IState {
-  active: boolean;
-  openedMenuIndex: number;
-}
-interface IKeyDownAttr {
-  altKey: boolean;
-  shiftKey: boolean;
-  ctrlKey: boolean;
-  metaKey: boolean;
-  which: number;
+  active?: boolean;
+  altKeyPressed?: boolean;
+  openedMenuIndex?: number;
 }
 
 class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
@@ -26,6 +21,7 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
     this.containerRef = React.createRef();
     this.state = {
       active: false,
+      altKeyPressed: false,
       openedMenuIndex: -1,
     };
   }
@@ -131,10 +127,13 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
   };
 
   componentDidMount() {
+    const { enableAltKeyAction } = this.props;
     this.initSubmenu();
 
-    window.addEventListener('keydown', this.onKeyDownWindow, false);
-    window.addEventListener('keyup', this.onKeyUpWindow, false);
+    if (enableAltKeyAction) {
+      window.addEventListener('keydown', this.onKeyDownWindow, false);
+      window.addEventListener('keyup', this.onKeyUpWindow, false);
+    }
   }
 
   componentDidUpdate(prevProps: IREWMenu.IMenuBarProps) {
@@ -144,12 +143,15 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.onKeyDownWindow);
-    window.removeEventListener('keyup', this.onKeyUpWindow);
+    const { enableAltKeyAction } = this.props;
+    if (enableAltKeyAction) {
+      window.removeEventListener('keydown', this.onKeyDownWindow);
+      window.removeEventListener('keyup', this.onKeyUpWindow);
+    }
   }
 
   render() {
-    const { active, openedMenuIndex } = this.state;
+    const { active, altKeyPressed, openedMenuIndex } = this.state;
     const { items = [], style } = this.props;
     const menuBarStyle = {
       ...style,
@@ -176,7 +178,7 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
                 this.handleMenuOver(e, mi);
               }}
             >
-              {menu.label}
+              {getMenuLabelName(menu.label, altKeyPressed)}
             </div>
           );
         })}
