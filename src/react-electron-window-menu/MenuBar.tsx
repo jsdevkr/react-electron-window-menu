@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IREWMenu } from './common/@types';
+import { REWMenuEnums } from './common/@enums';
 import ContextMenu from './ContextMenu';
 import getMenuLabelName from './common/getMenuLabelName';
 
@@ -7,6 +8,7 @@ interface IState {
   active?: boolean;
   altKeyPressed?: boolean;
   openedMenuIndex?: number;
+  focusMenuIndex?: number;
 }
 
 class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
@@ -23,6 +25,7 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
       active: false,
       altKeyPressed: false,
       openedMenuIndex: -1,
+      focusMenuIndex: -1,
     };
   }
 
@@ -38,11 +41,36 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
   };
 
   onKeyDownWindow = (ev: KeyboardEvent) => {
+    const { altKeyPressed, focusMenuIndex = 0 } = this.state;
+    const { items = [] } = this.props;
     const { altKey, shiftKey, ctrlKey, metaKey, which } = ev;
     this.keydownInfo = [shiftKey, ctrlKey, metaKey, which].join('-');
 
     if (altKey && which !== 18) {
       console.log('keyaction', which);
+    } else if (altKeyPressed) {
+      switch (which) {
+        case REWMenuEnums.KeyCodes.RIGHT_ARROW:
+          this.setState({
+            focusMenuIndex:
+              focusMenuIndex + 1 < items.length ? focusMenuIndex + 1 : 0,
+          });
+
+          break;
+        case REWMenuEnums.KeyCodes.LEFT_ARROW:
+          this.setState({
+            focusMenuIndex:
+              focusMenuIndex === 0 ? items.length - 1 : focusMenuIndex - 1,
+          });
+          break;
+
+        case REWMenuEnums.KeyCodes.DOWN_ARROW:
+          break;
+        default:
+          break;
+      }
+
+      console.log(which);
     }
   };
 
@@ -52,7 +80,30 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
 
     if (this.keydownInfo === keyupInfo && which === 18) {
       console.log('altkey', which);
+      this.setAltKeyPressed(!this.state.altKeyPressed);
     }
+  };
+
+  setAltKeyPressed = (pressed: boolean) => {
+    if (pressed) {
+      this.setState({
+        active: true,
+        altKeyPressed: true,
+        focusMenuIndex: 0,
+      });
+    } else {
+      this.setState({
+        active: false,
+        altKeyPressed: false,
+        focusMenuIndex: -1,
+      });
+    }
+  };
+
+  setFocusMenuIndex = (menuIndex: number) => {
+    this.setState({
+      focusMenuIndex: menuIndex,
+    });
   };
 
   handleMenuBarActive = () => {
@@ -102,6 +153,7 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
 
     this.setState({
       openedMenuIndex: menuIndex,
+      focusMenuIndex: menuIndex,
     });
   };
 
@@ -158,7 +210,12 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
   }
 
   render() {
-    const { active, altKeyPressed, openedMenuIndex } = this.state;
+    const {
+      active,
+      altKeyPressed,
+      openedMenuIndex,
+      focusMenuIndex,
+    } = this.state;
     const { items = [], style } = this.props;
     const menuBarStyle = {
       ...style,
@@ -172,7 +229,7 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
         {items.map((menu, mi) => {
           return (
             <div
-              className={`${openedMenuIndex === mi ? 'active' : ''}`}
+              className={`${focusMenuIndex === mi ? 'active' : ''}`}
               key={mi}
               data-menubar-item
               onMouseDown={() => {
