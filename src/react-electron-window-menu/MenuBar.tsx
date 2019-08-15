@@ -40,12 +40,19 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
   onKeyDownWindow = (ev: KeyboardEvent) => {
     const { altKey, shiftKey, ctrlKey, metaKey, which } = ev;
     this.keydownInfo = [shiftKey, ctrlKey, metaKey, which].join('-');
+
+    if (altKey && which !== 18) {
+      console.log('keyaction', which);
+    }
   };
 
   onKeyUpWindow = (ev: KeyboardEvent) => {
     const { altKey, shiftKey, ctrlKey, metaKey, which } = ev;
     const keyupInfo = [shiftKey, ctrlKey, metaKey, which].join('-');
-    console.log(this.keydownInfo, keyupInfo, this.keydownInfo === keyupInfo);
+
+    if (this.keydownInfo === keyupInfo && which === 18) {
+      console.log('altkey', which);
+    }
   };
 
   handleMenuBarActive = () => {
