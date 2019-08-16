@@ -35,6 +35,7 @@ export namespace IREWMenu {
     id?: string;
     style?: React.CSSProperties;
     placement?: 'top' | 'bottom';
+    onClick?: OnClickItem;
   }
 
   export interface IPopupOption {
@@ -69,6 +70,7 @@ export namespace IREWMenu {
     popup: (popupOption?: IPopupOption) => void;
     setMenu: (menuItems: IMenuItem[]) => IContextMenu;
     close: () => void;
+    contains: (node: Node) => boolean;
   }
 
   export interface IMenuBarSubmenu {

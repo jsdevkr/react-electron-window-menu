@@ -33,9 +33,19 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
     var el = ev.target;
     if (this.containerRef.current) {
       if (el && el instanceof Node && !this.containerRef.current.contains(el)) {
-        this.setState({ active: false, openedMenuIndex: -1 });
-        document.body.removeEventListener('mousedown', this.onMousedownBody);
-        window.removeEventListener('keydown', this.onKeyDownWindow);
+        const { openedMenuIndex = -1 } = this.state;
+        if (openedMenuIndex > -1) {
+          const submenu = this.childMenu[openedMenuIndex];
+          if (submenu.contains(el)) {
+            return;
+          }
+        }
+
+        this.setState({
+          active: false,
+          altKeyPressed: false,
+          openedMenuIndex: -1,
+        });
       }
     }
   };
@@ -46,8 +56,16 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
     const { altKey, shiftKey, ctrlKey, metaKey, which } = ev;
     this.keydownInfo = [shiftKey, ctrlKey, metaKey, which].join('-');
 
+    switch (which) {
+      case REWMenuEnums.KeyCodes.ESC:
+        this.handleReset();
+        return;
+      default:
+        break;
+    }
+
     if (altKey && which !== 18) {
-      console.log('keyaction', which);
+      // console.log('keyaction', which);
     } else if (altKeyPressed) {
       switch (which) {
         case REWMenuEnums.KeyCodes.RIGHT_ARROW:
@@ -81,8 +99,6 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
         default:
           break;
       }
-
-      console.log(which);
     }
   };
 
@@ -104,12 +120,7 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
         focusMenuIndex: 0,
       });
     } else {
-      this.handleSubmenuClose();
-      this.setState({
-        active: false,
-        altKeyPressed: false,
-        focusMenuIndex: -1,
-      });
+      this.handleReset();
     }
   };
 
@@ -119,24 +130,23 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
     });
   };
 
-  handleMenuBarActive = () => {
-    this.setState({
-      active: true,
-    });
-
-    document.body.addEventListener('mousedown', this.onMousedownBody);
-  };
-
   handleMenuClick = (ev: React.MouseEvent, menuIndex: number) => {
-    this.handleSubmenuPopup(ev.currentTarget, menuIndex);
+    const { openedMenuIndex } = this.state;
+    if (openedMenuIndex !== menuIndex) {
+      this.handleSubmenuPopup(ev.currentTarget, menuIndex);
+    } else {
+      this.handleReset();
+    }
   };
 
   handleMenuOver = (ev: React.MouseEvent, menuIndex: number) => {
-    const { active } = this.state;
+    const { active, focusMenuIndex } = this.state;
     if (!active) {
       return;
     }
-    this.handleSubmenuPopup(ev.currentTarget, menuIndex);
+    if (focusMenuIndex !== menuIndex) {
+      this.handleSubmenuPopup(ev.currentTarget, menuIndex);
+    }
   };
 
   handleSubmenuPopup = (el: Element, menuIndex: number) => {
@@ -151,7 +161,7 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
       return;
     }
 
-    const { openedMenuIndex = -1 } = this.state;
+    const { openedMenuIndex = -1, focusMenuIndex = -1 } = this.state;
     const { pageXOffset, pageYOffset } = window;
     const { left, top, height } = el.getBoundingClientRect();
 
@@ -159,28 +169,37 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
       this.childMenu[openedMenuIndex] &&
         this.childMenu[openedMenuIndex].close();
     }
-    // submenu.setMenu(item.submenu || []);
+
     submenu.popup({ x: left + pageXOffset, y: top + height + pageYOffset });
 
     this.setState({
+      active: true,
       openedMenuIndex: menuIndex,
       focusMenuIndex: menuIndex,
     });
   };
 
-  handleSubmenuClose = () => {
+  handleReset = () => {
     const { openedMenuIndex = -1 } = this.state;
-    if (openedMenuIndex < 0) {
-      return;
+    if (openedMenuIndex > -1) {
+      const { items = [] } = this.props;
+      const item = items[openedMenuIndex];
+      const submenu = this.childMenu[openedMenuIndex];
+      submenu.close();
     }
-    const { items = [] } = this.props;
-    const item = items[openedMenuIndex];
-    const submenu = this.childMenu[openedMenuIndex];
-    submenu.close();
 
     this.setState({
+      active: false,
+      altKeyPressed: false,
+      focusMenuIndex: -1,
       openedMenuIndex: -1,
     });
+  };
+
+  onClickSubmenu = (menuItem: IREWMenu.IMenuItem) => {
+    const { openedMenuIndex } = this.state;
+    console.log('onClickSubmenu', menuItem);
+    this.handleReset();
   };
 
   initSubmenu = () => {
@@ -205,6 +224,9 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
         id: `menu-${i}`,
         style: submenuStyle,
         placement,
+        onClick: menuItem => {
+          this.onClickSubmenu(menuItem);
+        },
       });
       submenu.setMenu(menu.submenu || []);
       this.childMenu.push(submenu);
@@ -215,14 +237,19 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
     const { enableAltKeyAction } = this.props;
     this.initSubmenu();
 
+    window.addEventListener('keydown', this.onKeyDownWindow, false);
+
     if (enableAltKeyAction) {
-      window.addEventListener('keydown', this.onKeyDownWindow, false);
       window.addEventListener('keyup', this.onKeyUpWindow, false);
     }
   }
 
   componentDidUpdate(prevProps: IREWMenu.IMenuBarProps, prevState: IState) {
-    const { focusMenuIndex = -1, openedMenuIndex = -1 } = this.state;
+    const {
+      focusMenuIndex = -1,
+      openedMenuIndex = -1,
+      active = false,
+    } = this.state;
 
     if (prevProps.items !== this.props.items) {
       this.initSubmenu();
@@ -241,15 +268,21 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
         }
         this.handleSubmenuPopup(el, focusMenuIndex);
       }
+    }
 
-      console.log('opened & change focusIndex', this.state.focusMenuIndex);
+    if (prevState.active !== active) {
+      if (active) {
+        document.body.addEventListener('mousedown', this.onMousedownBody);
+      } else {
+        document.body.removeEventListener('mousedown', this.onMousedownBody);
+      }
     }
   }
 
   componentWillUnmount() {
     const { enableAltKeyAction } = this.props;
+    window.removeEventListener('keydown', this.onKeyDownWindow);
     if (enableAltKeyAction) {
-      window.removeEventListener('keydown', this.onKeyDownWindow);
       window.removeEventListener('keyup', this.onKeyUpWindow);
     }
   }
@@ -277,9 +310,6 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
               className={`${focusMenuIndex === mi ? 'active' : ''}`}
               key={mi}
               data-menubar-item={mi}
-              onMouseDown={() => {
-                this.handleMenuBarActive();
-              }}
               onClick={e => {
                 this.handleMenuClick(e, mi);
               }}

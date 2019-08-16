@@ -50,6 +50,10 @@ class ContextMenu implements IREWMenu.IContextMenu {
     const { x: containerLeft = 0, y: containerTop = 0 } = popupOption;
     const { id = '' } = this.options;
 
+    if (this.visible) {
+      return;
+    }
+
     const existContainer = document.querySelectorAll(
       `[data-rewm-contextmenu-container="${id}"]`,
     )[0];
@@ -85,6 +89,11 @@ class ContextMenu implements IREWMenu.IContextMenu {
         menuItem.checked = !menuItem.checked;
       }
     }
+
+    if (this.options.onClick) {
+      this.options.onClick(menuItem, w, e);
+    }
+
     // 메뉴가 클릭되었다는 것은 인지하는 곳.
     this.visible = false;
   };
@@ -101,6 +110,10 @@ class ContextMenu implements IREWMenu.IContextMenu {
     if (e.which === 27) {
       this.visible = false;
     }
+  };
+
+  contains = (node: Node) => {
+    return this.container.contains(node);
   };
 
   render() {
