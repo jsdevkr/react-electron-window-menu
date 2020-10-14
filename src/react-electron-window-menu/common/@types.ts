@@ -12,6 +12,7 @@ export namespace IREWMenu {
   ) => void;
 
   export interface IMenuItem {
+    id?: string;
     label?: string;
     sublabel?: string;
     type?: 'normal' | 'separator' | 'checkbox';
