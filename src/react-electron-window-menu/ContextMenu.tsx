@@ -13,7 +13,7 @@ const ReactDOM = (() => {
 })();
 
 class ContextMenu implements IREWMenu.IContextMenu {
-  container: HTMLDivElement;
+  container: HTMLDivElement | undefined;
   options: IREWMenu.IContextMenuOptions = {
     id: '',
   };
@@ -46,8 +46,8 @@ class ContextMenu implements IREWMenu.IContextMenu {
     return this;
   }
 
-  popup(popupOption: IREWMenu.IPopupOption) {
-    const { x: containerLeft = 0, y: containerTop = 0 } = popupOption;
+  popup(popupOption?: IREWMenu.IPopupOption) {
+    const { x: containerLeft = 0, y: containerTop = 0 } = popupOption ?? {};
     const { id = '' } = this.options;
 
     const existContainer = document.querySelectorAll(
@@ -55,7 +55,7 @@ class ContextMenu implements IREWMenu.IContextMenu {
     )[0];
 
     if (existContainer && id !== '') {
-      this.container = existContainer as any;
+      this.container = existContainer as HTMLDivElement;
       document.body.appendChild(this.container);
     } else {
       this.container = document.createElement('div');
@@ -92,7 +92,7 @@ class ContextMenu implements IREWMenu.IContextMenu {
   // document.body에서 마우스 다운이 일어난 경우 contextMenu안쪽이 클릭된 것이지 바깥쪽에서 마우스 다운이 일어 난 건지 체크.
   onMousedownBody = (e: MouseEvent) => {
     var el = e.target;
-    if (el && el instanceof Node && !this.container.contains(el)) {
+    if (el && el instanceof Node && !this.container?.contains(el)) {
       this.visible = false;
     }
   };

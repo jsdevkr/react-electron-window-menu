@@ -5,9 +5,7 @@ import { ContextMenuExample, MenuBarExample } from 'examples';
 import { CodeViewer } from 'components';
 import { Checkbox, Divider } from 'antd';
 
-const contextMenuRaw = require('!raw-loader!examples/ContextMenuExample.tsx');
-const menuBarRaw = require('!raw-loader!examples/MenuBarExample.tsx');
-const axuiLogo = require('assets/axui-logo.png');
+import axuiLogo from 'assets/axui-logo.png';
 const GitHubButton = require('react-github-button');
 
 const Component = styled.div`
@@ -108,36 +106,12 @@ import { ContextMenu, MenuBar } from 'react-electron-window-menu';
           <MenuBarExample />
 
           <br />
-          <p>
-            <Checkbox
-              onChange={e => {
-                this.setState({
-                  viewMenuBarRaw: e.target.checked,
-                });
-              }}
-            >
-              View Source
-            </Checkbox>
-          </p>
-          {viewMenuBarRaw ? <CodeViewer code={menuBarRaw} /> : null}
 
           <Divider />
 
           <h2>ContextMenu</h2>
           <ContextMenuExample />
           <br />
-          <p>
-            <Checkbox
-              onChange={e => {
-                this.setState({
-                  viewBasicRaw: e.target.checked,
-                });
-              }}
-            >
-              View Source
-            </Checkbox>
-          </p>
-          {viewBasicRaw ? <CodeViewer code={contextMenuRaw} /> : null}
         </StyledContainer>
       </Component>
     );

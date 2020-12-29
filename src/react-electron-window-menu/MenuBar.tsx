@@ -17,7 +17,7 @@ interface IKeyDownAttr {
 class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
   childMenu: IREWMenu.IContextMenu[];
   containerRef: React.RefObject<HTMLDivElement>;
-  keydownInfo: string;
+  keydownInfo?: string;
 
   constructor(props: IREWMenu.IMenuBarProps) {
     super(props);
@@ -169,10 +169,10 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
               onMouseDown={() => {
                 this.handleMenuBarActive();
               }}
-              onClick={(e) => {
+              onClick={e => {
                 this.handleMenuClick(e, mi);
               }}
-              onMouseOver={(e) => {
+              onMouseOver={e => {
                 this.handleMenuOver(e, mi);
               }}
             >

@@ -1,15 +1,25 @@
 {
   "compilerOptions": {
     "outDir": ".tsOutput",
-    "module": "commonjs",
+    "module": "esnext",
     "target": "es5",
-    "lib": ["dom", "es2015", "es2016", "es2017", "es2018", "esnext"],
+    "lib": [
+      "dom",
+      "es2015",
+      "es2016",
+      "es2017",
+      "es2018",
+      "esnext"
+    ],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
     "baseUrl": "src",
-    "typeRoots": ["node_modules/@types", "@types"],
+    "typeRoots": [
+      "node_modules/@types",
+      "@types"
+    ],
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -21,9 +31,17 @@
     "noUnusedParameters": false,
     "experimentalDecorators": true,
     "downlevelIteration": true,
-    "plugins": [{
-      "name": "typescript-styled-plugin"
-    }]
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin"
+      }
+    ],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
   },
   "exclude": [
     "node_modules",
@@ -33,5 +51,8 @@
     "webpack",
     "jest",
     "dist"
+  ],
+  "include": [
+    "src"
   ]
 }

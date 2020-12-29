@@ -1,8 +1,19 @@
 import * as React from 'react';
-import { MenuBar, IREWMenu } from 'react-electron-window-menu';
-import 'react-electron-window-menu/style.scss';
+import { MenuBar } from 'react-electron-window-menu';
+import { IREWMenu } from 'react-electron-window-menu/common/@types';
+import 'react-electron-window-menu/style.less';
 import { styled } from 'styledComponents';
-import { Icon } from 'antd';
+import {
+  ArrowLeftOutlined,
+  ArrowRightOutlined,
+  FacebookOutlined,
+  GithubOutlined,
+  GooglePlusOutlined,
+  MailOutlined,
+  ReloadOutlined,
+  SlackOutlined,
+  TwitterOutlined,
+} from '@ant-design/icons';
 
 const Container = styled.div`
   height: 200px;
@@ -49,19 +60,19 @@ class MenuBarExample extends React.Component<IProps, IState> {
                 submenu: [
                   {
                     label: 'Back (enabled: false)',
-                    icon: <Icon type="arrow-left" />,
+                    icon: <ArrowLeftOutlined />,
                     click: this.onClickMenu,
                     enabled: false,
                   },
                   {
                     label: 'Forward',
-                    icon: <Icon type="arrow-right" />,
+                    icon: <ArrowRightOutlined />,
                     click: this.onClickMenu,
                     accelerator: 'Cmd+F',
                   },
                   {
                     label: 'Reload',
-                    icon: <Icon type="caret-right" />,
+                    icon: <ReloadOutlined />,
                     click: this.onClickMenu,
                   },
                   { type: 'separator' },
@@ -92,39 +103,39 @@ class MenuBarExample extends React.Component<IProps, IState> {
                     submenu: [
                       {
                         label: 'Github',
-                        icon: <Icon type="github" />,
+                        icon: <GithubOutlined />,
                         click: this.onClickMenu,
                       },
                       {
                         label: 'Gitlab',
-                        icon: <Icon type="gitlab" />,
+                        icon: <GithubOutlined />,
                         click: this.onClickMenu,
                       },
                       {
                         label: 'Twitter',
-                        icon: <Icon type="twitter" />,
+                        icon: <TwitterOutlined />,
                         click: this.onClickMenu,
                       },
                       {
                         label: 'Facebook',
-                        icon: <Icon type="facebook" />,
+                        icon: <FacebookOutlined />,
                         click: this.onClickMenu,
                       },
                       {
                         label: 'Google+',
-                        icon: <Icon type="google-plus" />,
+                        icon: <GooglePlusOutlined />,
                         click: this.onClickMenu,
                         visible: false,
                       },
                       {
                         label: 'Slack (enabled: false)',
-                        icon: <Icon type="slack-square" />,
+                        icon: <SlackOutlined />,
                         click: this.onClickMenu,
                         enabled: false,
                       },
                       {
                         label: 'Email',
-                        icon: <Icon type="mail" />,
+                        icon: <MailOutlined />,
                         click: this.onClickMenu,
                       },
                     ],
