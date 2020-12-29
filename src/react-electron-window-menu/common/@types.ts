@@ -1,3 +1,5 @@
+import { ContextMenu } from 'react-electron-window-menu';
+
 export namespace IREWMenu {
   export type OnHoverItem = (
     menuItem: IMenuItem,
@@ -12,6 +14,7 @@ export namespace IREWMenu {
   ) => void;
 
   export interface IMenuItem {
+    id?: string;
     label?: string;
     sublabel?: string;
     type?: 'normal' | 'separator' | 'checkbox';
@@ -67,7 +70,7 @@ export namespace IREWMenu {
 
   export interface IContextMenu {
     popup: (popupOption?: IPopupOption) => void;
-    setMenu: (menuItems: IMenuItem[]) => IContextMenu;
+    setMenu: (menuItems: IMenuItem[]) => ContextMenu;
     close: () => void;
   }
 

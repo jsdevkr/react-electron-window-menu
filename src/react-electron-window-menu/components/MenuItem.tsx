@@ -4,10 +4,17 @@ import SubmenuIcon from './SubmenuIcon';
 import Submenu from './Submenu';
 import { IREWMenu } from '../common/@types';
 
+const platform =
+  typeof window !== 'undefined' ? window.navigator.platform : process.platform;
+const macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K', 'darwin'];
+const windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE', 'win32'];
+
 const is = {
-  macos: process.platform === 'darwin',
-  linux: process.platform === 'linux',
-  windows: process.platform === 'win32',
+  macos: macosPlatforms.indexOf(platform) !== -1,
+  linux:
+    macosPlatforms.indexOf(platform) === -1 &&
+    windowsPlatforms.indexOf(platform) === -1,
+  windows: windowsPlatforms.indexOf(platform) !== -1,
 };
 
 export function KeymapDisplay(key?: string) {
@@ -30,7 +37,7 @@ export function KeymapDisplay(key?: string) {
 
   return key
     .split(/\+/g)
-    .map(s => {
+    .map((s) => {
       if (typeof chars[s] === 'undefined') {
         return s;
       } else {
@@ -80,7 +87,7 @@ class MenuItem extends React.Component<IREWMenu.IMenuItemProps> {
           <div
             ref={this.itemRef}
             {...itemProps}
-            onClick={e => {
+            onClick={(e) => {
               // has click and dont have submenu
               if (!item.submenu && enabled) {
                 onClickItem(item, window, e);
@@ -89,7 +96,7 @@ class MenuItem extends React.Component<IREWMenu.IMenuItemProps> {
                 }
               }
             }}
-            onMouseOver={e => {
+            onMouseOver={(e) => {
               onHoverItem(item, e, true);
             }}
           >

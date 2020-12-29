@@ -1,12 +1,13 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist/es6",
+    "outDir": "./dist/es6",
     "module": "commonjs",
     "target": "es6",
     "allowJs": false,
     "declaration": true,
-    "sourceMap": false
+    "sourceMap": false,
+    "noEmit": false
   },
-  "include": ["src/react-electron-window-menu/**/*"]
+  "include": ["./src/react-electron-window-menu/**/*"]
 }

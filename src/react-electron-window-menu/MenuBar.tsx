@@ -12,7 +12,7 @@ interface IState {
 class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
   childMenu: IREWMenu.IContextMenu[];
   containerRef: React.RefObject<HTMLDivElement>;
-  keydownInfo: string;
+  keydownInfo?: string;
 
   constructor(props: IREWMenu.IMenuBarProps) {
     super(props);
@@ -43,9 +43,9 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
   };
 
   onKeyUpWindow = (ev: KeyboardEvent) => {
-    const { altKey, shiftKey, ctrlKey, metaKey, which } = ev;
-    const keyupInfo = [shiftKey, ctrlKey, metaKey, which].join('-');
-    console.log(this.keydownInfo, keyupInfo, this.keydownInfo === keyupInfo);
+    // const { altKey, shiftKey, ctrlKey, metaKey, which } = ev;
+    // const keyupInfo = [shiftKey, ctrlKey, metaKey, which].join('-');
+    // console.log(this.keydownInfo, keyupInfo, this.keydownInfo === keyupInfo);
   };
 
   handleMenuBarActive = () => {
