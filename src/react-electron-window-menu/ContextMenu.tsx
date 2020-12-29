@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IREWMenu } from './common/@types';
+import { IREWMenu } from './@types';
 import { PopupMenu } from './components';
 
 const ReactDOM = (() => {

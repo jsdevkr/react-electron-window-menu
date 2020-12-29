@@ -1,13 +1,13 @@
 {
   "name": "react-electron-window-menu",
-  "version": "0.5.1",
+  "version": "0.6.1",
   "description": ":octocat: React Component that render a menu with 'Electron Menu' in the Windows environment.",
   "jsnext:main": "dist/es6/index.js",
   "module": "dist/es6/index.js",
   "main": "dist/commonjs/index.js",
   "scripts": {
     "start": "craco start",
-    "build": "npm run build:common && npm run build:es5 && npm run build:es6 && ncp ./src/package.json ./dist/package.json",
+    "build": "npm run build:common && npm run build:es5 && npm run build:es6",
     "prepublish": "npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

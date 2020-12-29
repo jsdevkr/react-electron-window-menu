@@ -338,3 +338,4 @@ export default ContextMenuExample;
 - v0.3.1 : update readme
 - v0.4.0 : Add property "accelerator" on MenuItem
 - v0.5.1 : Rename to react-electron-window-menu
+- v0.6.1 : Update dependencies

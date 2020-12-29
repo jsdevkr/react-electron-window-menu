@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ContextMenu } from 'react-electron-window-menu';
+import { ContextMenu, IREWMenu } from 'react-electron-window-menu';
 import 'react-electron-window-menu/style.less';
 import { styled } from 'styledComponents';
 import {
@@ -13,7 +13,6 @@ import {
   SlackOutlined,
   TwitterOutlined,
 } from '@ant-design/icons';
-import { IREWMenu } from 'react-electron-window-menu/common/@types';
 
 const Container = styled.div`
   height: 300px;

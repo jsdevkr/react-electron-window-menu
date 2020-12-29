@@ -1,6 +1,6 @@
 import * as React from 'react';
 import MenuItem from './MenuItem';
-import { IREWMenu } from '../common/@types';
+import { IREWMenu } from '../@types';
 
 class PopupMenu extends React.Component<
   IREWMenu.IPopupMenuProps,

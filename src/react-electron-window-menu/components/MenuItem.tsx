@@ -2,7 +2,7 @@ import * as React from 'react';
 import CheckboxIcon from './CheckboxIcon';
 import SubmenuIcon from './SubmenuIcon';
 import Submenu from './Submenu';
-import { IREWMenu } from '../common/@types';
+import { IREWMenu } from '../@types';
 
 const platform =
   typeof window !== 'undefined' ? window.navigator.platform : process.platform;
@@ -37,7 +37,7 @@ export function KeymapDisplay(key?: string) {
 
   return key
     .split(/\+/g)
-    .map((s) => {
+    .map(s => {
       if (typeof chars[s] === 'undefined') {
         return s;
       } else {
@@ -87,7 +87,7 @@ class MenuItem extends React.Component<IREWMenu.IMenuItemProps> {
           <div
             ref={this.itemRef}
             {...itemProps}
-            onClick={(e) => {
+            onClick={e => {
               // has click and dont have submenu
               if (!item.submenu && enabled) {
                 onClickItem(item, window, e);
@@ -96,7 +96,7 @@ class MenuItem extends React.Component<IREWMenu.IMenuItemProps> {
                 }
               }
             }}
-            onMouseOver={(e) => {
+            onMouseOver={e => {
               onHoverItem(item, e, true);
             }}
           >

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PopupMenu from './PopupMenu';
-import { IREWMenu } from '../common/@types';
+import { IREWMenu } from '../@types';
 
 const Submenu: React.SFC<{
   submenu: IREWMenu.IMenuItem[];

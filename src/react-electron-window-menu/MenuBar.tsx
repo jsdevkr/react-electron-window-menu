@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IREWMenu } from './common/@types';
+import { IREWMenu } from './@types';
 import ContextMenu from './ContextMenu';
 import getMenuLabelName from './common/getMenuLabelName';
 

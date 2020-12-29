@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { MenuBar } from 'react-electron-window-menu';
-import { IREWMenu } from 'react-electron-window-menu/common/@types';
+import { MenuBar, IREWMenu } from 'react-electron-window-menu';
 import 'react-electron-window-menu/style.less';
 import { styled } from 'styledComponents';
 import {
