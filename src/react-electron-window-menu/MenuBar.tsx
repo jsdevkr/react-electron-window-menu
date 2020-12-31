@@ -50,7 +50,7 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
 
   handleMenuBarActive = () => {
     this.setState({
-      active: true,
+      active: !this.state.active,
     });
 
     document.body.addEventListener('mousedown', this.onMousedownBody);
@@ -69,6 +69,13 @@ class MenuBar extends React.Component<IREWMenu.IMenuBarProps, IState> {
   };
 
   handleSubmenuPopup = (e: React.MouseEvent, menuIndex: number) => {
+    if(!this.state.active){
+      this.setState({
+        openedMenuIndex: -1,
+      });
+      return;
+    };
+
     const { items = [] } = this.props;
     const item = items[menuIndex];
     const submenu = this.childMenu[menuIndex];
