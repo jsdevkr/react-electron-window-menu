@@ -1,16 +1,7 @@
 import * as React from 'react';
 import { IREWMenu } from './@types';
 import { PopupMenu } from './components';
-
-const ReactDOM = (() => {
-  try {
-    const ReactDom = require('@hot-loader/react-dom');
-    if (ReactDom) {
-      return ReactDom;
-    }
-  } catch (error) {}
-  return require('react-dom');
-})();
+import * as ReactDOM from 'react-dom';
 
 class ContextMenu implements IREWMenu.IContextMenu {
   container: HTMLDivElement | undefined;

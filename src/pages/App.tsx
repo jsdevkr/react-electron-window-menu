@@ -1,6 +1,6 @@
 import * as React from 'react';
 import 'styles/globals';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { hot } from 'react-hot-loader/root';
 import { NoMatch, ErrorBoundary } from 'components';
 import 'styles/globals';
