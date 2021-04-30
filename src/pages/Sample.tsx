@@ -59,14 +59,13 @@ class Index extends React.Component<IProps, IState> {
     const { viewMenuBarRaw, viewBasicRaw } = this.state;
 
     return (
-      <Component>
+      <Component style={{ outline: 0 }}>
         <header className={'app-header'}>
           <StyledContainer>
             <div className={'logo-img'}>
               <img src={axuiLogo} />
             </div>
             <h1>react-electron-window-menu</h1>
-
             <div>
               {window.location.host !== 'localhost:3000' && (
                 <>

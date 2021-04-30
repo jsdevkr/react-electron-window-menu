@@ -10,7 +10,7 @@ export namespace IREWMenu {
   export type OnClickItem = (
     menuItem: IMenuItem,
     browserWindow: Window,
-    event: React.MouseEvent<HTMLDivElement>,
+    event?: React.MouseEvent<HTMLDivElement>,
   ) => void;
 
   export interface IMenuItem {

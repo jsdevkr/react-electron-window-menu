@@ -61,7 +61,6 @@ class ContextMenuExample extends React.Component<IProps, IState> {
         label: 'Back (enabled: false)',
         icon: <ArrowLeftOutlined />,
         click: this.onClickMenu,
-        enabled: false,
       },
       {
         label: 'Forward',

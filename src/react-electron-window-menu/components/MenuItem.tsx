@@ -57,16 +57,7 @@ class MenuItem extends React.Component<IREWMenu.IMenuItemProps> {
 
   render() {
     const { item, onClickItem, onHoverItem } = this.props;
-    const {
-      type = 'normal',
-      label,
-      icon,
-      checked,
-      submenu,
-      click,
-      enabled = true,
-      visible = true,
-    } = item;
+    const { type = 'normal', icon, enabled = true, visible = true } = item;
     const itemProps = {};
 
     if (!visible) {
@@ -91,9 +82,6 @@ class MenuItem extends React.Component<IREWMenu.IMenuItemProps> {
               // has click and dont have submenu
               if (!item.submenu && enabled) {
                 onClickItem(item, window, e);
-                if (click) {
-                  click(item, window, e);
-                }
               }
             }}
             onMouseOver={e => {
