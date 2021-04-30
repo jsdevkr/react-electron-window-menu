@@ -161,8 +161,10 @@ class ContextMenu implements IREWMenu.IContextMenu {
       }
       this.render();
     } else if (type === 'LEFT') {
-      targetItems.forEach(item => (item.opened = false));
-      this.render();
+      if (currentHoveredIndexes.length > 1) {
+        targetItems.forEach(item => (item.opened = false));
+        this.render();
+      }
     }
   };
 
