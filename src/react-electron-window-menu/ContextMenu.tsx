@@ -206,8 +206,17 @@ class ContextMenu implements IREWMenu.IContextMenu {
       case 'ArrowRight':
         this.moveHoveredIndex('RIGHT');
         break;
+      default:
+        return; // Quit when this doesn't handle the key event.
+    }
+  };
+
+  onKeyUp = (e: KeyboardEvent) => {
+    e.preventDefault();
+
+    switch (e.key) {
       case 'Enter':
-        this.handleClickItem(e);
+        setTimeout(() => this.handleClickItem(e));
         break;
       case 'Esc': // IE/Edge specific value
       case 'Escape':
@@ -242,9 +251,11 @@ class ContextMenu implements IREWMenu.IContextMenu {
       this.container.focus();
       document.body.addEventListener('mousedown', this.onMousedownBody);
       this.container.addEventListener('keydown', this.onKeyDown);
+      this.container.addEventListener('keyup', this.onKeyUp);
     } else {
       document.body.removeEventListener('mousedown', this.onMousedownBody);
       this.container.removeEventListener('keydown', this.onKeyDown);
+      this.container.removeEventListener('keyup', this.onKeyUp);
       this.container.blur();
       this.container.remove();
     }
